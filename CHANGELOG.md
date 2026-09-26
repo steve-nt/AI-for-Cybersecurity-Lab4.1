@@ -182,3 +182,31 @@ earlier outputs and exits 1.
 **Why**
 The Part A table started at A4, which looked like a numbering gap. The lab's steps A1–A3 are done in T3
 (setup notebook), and the new row says so.
+
+## 2026-09-26 12:33 EEST: Lab steps A7–A9, label-scarce models
+
+**What**
+- `parts/20_label_scarce.ipynb`: created and stored with its outputs. A title cell and
+  `%run 00_setup.ipynb`, both marked `STANDIN`, then one Markdown and one code cell per step:
+  - A7: 5% labelled / 95% unlabelled split of the training set (`stratify`, `random_state=42`), with
+    asserts that it gives 342 / 6,516 rows, covers exactly the training rows and has no validation or
+    test URL; lower lines `rf_few` and `logreg_few` on the 5% only.
+  - A8: pseudo-labelling as in the lab (3 rounds, `CUTOFF = 0.9`, final `rf_semi`), plus a per-round check
+    of how many guesses were right against `y_hidden` (check only, never used to train), saved to
+    `results/tables/A8_pseudo_label_rounds.csv`.
+  - A9: fill-in-the-blanks network (20% masking, `MLPRegressor(32)`), `encode()` and the `self_sup`
+    Pipeline as in the lab, printed next to `logreg_few`, the fair comparison.
+- `results/tables/A8_pseudo_label_rounds.csv`: created by A8.
+- `lab4_1_explaining_phishing_detectors.ipynb`: rebuilt and executed with `tools/assemble.py` (now A0–A3
+  and A7–A9).
+- `TASKLIST.md`: ticked A7, A8 and A9.
+
+**Why**
+Lab steps A7–A9: the lower lines are needed to judge whether the unlabelled 95% helped, and the lab
+keeps `y_hidden` to check the pseudo-labels, which its example code does not do.
+
+**Verified**
+Validation scores (macro-F1 / recall / FAR): forest 5% 0.938 / 0.946 / 0.069; logreg 5%
+0.912 / 0.915 / 0.092; semi-supervised 0.931 / 0.946 / 0.083; self-supervised 0.914 / 0.918 / 0.090.
+Pseudo-labels: 2,778 + 1,122 + 365 added, accuracy 99.4% → 98.5% → 95.6% per round (98.9% overall).
+The assembled notebook runs top to bottom and gives the same numbers.

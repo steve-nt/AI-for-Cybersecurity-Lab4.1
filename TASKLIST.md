@@ -41,9 +41,9 @@ when a task is done.
 | A4 | Glass box 1: small decision tree | Depth 3 and 4, keep the better one on **validation**. It is the readable model we read in B1 | T3 | ☐ |
 | A5 | Glass box 2: logistic regression | Scaled inside a Pipeline, one weight per feature. The second readable model | T3 | ☐ |
 | A6 | Black box: Random Forest, 100% labels | 300 trees. The **upper line**: the best score to expect when every URL has a label | T3 | ☐ |
-| A7 | Hide 95% of the labels and train the lower lines | 5% labelled split made from the **training set only**; forest and logreg on the 5% alone. Without these baselines we cannot tell whether unlabelled data helped | T3 | ☐ |
-| A8 | Semi-supervised: pseudo-labelling | Three rounds at CUTOFF 0.9. Use `y_hidden` **only** to check how accurate the guesses were | A7 | ☐ |
-| A9 | Self-supervised: fill-in-the-blanks network | Hide 20% of the scaled values, learn 32 hidden numbers per URL without labels, then logistic regression on the 5% labels | A7 | ☐ |
+| A7 | Hide 95% of the labels and train the lower lines | 5% labelled split made from the **training set only**; forest and logreg on the 5% alone. Without these baselines we cannot tell whether unlabelled data helped | T3 | ☑ |
+| A8 | Semi-supervised: pseudo-labelling | Three rounds at CUTOFF 0.9. Use `y_hidden` **only** to check how accurate the guesses were | A7 | ☑ |
+| A9 | Self-supervised: fill-in-the-blanks network | Hide 20% of the scaled values, learn 32 hidden numbers per URL without labels, then logistic regression on the 5% labels | A7 | ☑ |
 | A10 | All seven detectors on the same test set | The main results table of the report, and the answer to "did the unlabelled data help?" | A4–A9 | ☐ |
 
 ### Part B: explain the detectors
@@ -392,10 +392,10 @@ measured against it.
 labels alone) shows whether the unlabelled 95% added anything. The grading explicitly checks "the 5%
 split made from the training set only and `y_hidden` never used for training; both lower lines".
 
-- [ ] Split `X_train`/`y_train` (not `X`!) with `train_size=0.05`, `stratify=y_train`,
+- [x] Split `X_train`/`y_train` (not `X`!) with `train_size=0.05`, `stratify=y_train`,
       `random_state=42`. Expect 342 labelled and 6,516 unlabelled.
-- [ ] `rf_few` and `logreg_few` trained on `X_lab`, `y_lab` only; validation scores.
-- [ ] Add a comment next to `y_hidden` saying that it is only used in A8 to check guesses.
+- [x] `rf_few` and `logreg_few` trained on `X_lab`, `y_lab` only; validation scores.
+- [x] Add a comment next to `y_hidden` saying that it is only used in A8 to check guesses.
 
 **Done when:** both lower lines exist with validation scores.
 
@@ -404,11 +404,11 @@ split made from the training set only and `y_hidden` never used for training; bo
 **Why:** Same idea as Lab 2: the forest labels the unlabelled URLs it is very sure about and learns from
 them too.
 
-- [ ] Three rounds at `CUTOFF = 0.9`, then the final `rf_semi` on labels + guesses, as in the lab.
-- [ ] Per round, record: guesses added, still unlabelled, and **how many guesses were right**, by
+- [x] Three rounds at `CUTOFF = 0.9`, then the final `rf_semi` on labels + guesses, as in the lab.
+- [x] Per round, record: guesses added, still unlabelled, and **how many guesses were right**, by
       comparing with `y_hidden.loc[guess.index]`. The lab keeps `y_hidden` for exactly this check, but
       its example code does not do it. Save `results/tables/A8_pseudo_label_rounds.csv`.
-- [ ] Do not be surprised if `rf_semi` is **not** better than `rf_few`: the lab says a forest is already
+- [x] Do not be surprised if `rf_semi` is **not** better than `rf_few`: the lab says a forest is already
       strong with few labels, and that this is a real result to report.
 
 **Done when:** `rf_semi` exists, and the round table shows count and accuracy of the guesses.
@@ -419,9 +419,9 @@ them too.
 predict them back). Logistic regression then uses the 32 learned numbers and only the 5% labels. The
 fair comparison is `logreg_few`, since both are logistic regressions on the same 342 labels.
 
-- [ ] Scaler fitted on `X_train` (this uses no labels, so it is allowed), 20% masking with
+- [x] Scaler fitted on `X_train` (this uses no labels, so it is allowed), 20% masking with
       `default_rng(42)`, `MLPRegressor(hidden_layer_sizes=(32,), max_iter=300, random_state=42)`.
-- [ ] `encode()` and the `self_sup` Pipeline as in the lab; print the fill-in error and the validation
+- [x] `encode()` and the `self_sup` Pipeline as in the lab; print the fill-in error and the validation
       scores.
 
 **Done when:** `self_sup` exists and you can compare it with `logreg_few`.
