@@ -177,7 +177,7 @@ this to fit the deadline.
 | Item | Status |
 |---|---|
 | Repository | `steve-nt/AI-for-Cybersecurity-Lab4.1`, branch `main`, one commit (the lab PDF and TXT) |
-| Dataset | ❌ Not downloaded yet. `dataset_phishing.csv` from https://data.mendeley.com/datasets/c2gw7fy2j4/3 or Kaggle ("Web page Phishing Detection Dataset"). Expected: 11,430 rows × 89 columns, 5,715 phishing + 5,715 legitimate |
+| Dataset | ✅ `data/dataset_phishing.csv` (downloaded 2026-09-26 as `dataset_B_05_2020.csv` from https://data.mendeley.com/datasets/c2gw7fy2j4/3, SHA-256 matches Mendeley). 11,430 rows × 89 columns, 5,715 phishing + 5,715 legitimate, no missing values. CC BY 4.0, so it is committed; credit in `data/README.md` |
 | Environment | The Lab 3 virtual environment imports these versions together: Python 3.13, scikit-learn 1.6.1, shap 0.52.0, lime 0.2.0.1, numpy 2.5.3, pandas 3.0.6. We reuse those pins |
 | Reusable from Lab 3 | `src/brbes.py` (analytical ER, unit-tested) for the optional cross-check X5; the report structure and the `report/build_docx.py` script |
 | Colab or local | The lab uses Colab but allows "any tool you prefer". We develop locally; the final notebook must also run in Colab (see T3) |
@@ -226,7 +226,7 @@ and the assembly script (T4) builds the final notebook from them.
 ### 2.3 Repository layout and file ownership
 
 Every file has exactly one owner, and only the owner edits it. Each of us works on a personal branch
-(e.g. `kirill/forest`, `stefanos/labels-brb`) and merges to `main` at the sync points.
+(e.g. `kirsil-5`, `stente-5`) and merges to `main` at the sync points.
 
 ```
 AI-for-Cybersecurity-Lab4.1/
@@ -305,14 +305,15 @@ doing.
 **Why:** Both machines must run the same code with the same library versions, or the numbers will not
 match at sync 3 and the "notebook reproduces your numbers" criterion (30%) is at risk.
 
-- [ ] `requirements.txt` with the versions from section 1 (scikit-learn 1.6.1, shap 0.52.0,
+- [x] `requirements.txt` with the versions from section 1 (scikit-learn 1.6.1, shap 0.52.0,
       lime 0.2.0.1, numpy 2.5.3, pandas 3.0.6, matplotlib, jupyter, nbformat, nbconvert), with the
       install commands in a comment as in Lab 3 (`uv venv --python 3.13 .venv` …).
-- [ ] `.gitignore`: `.venv/`, `__pycache__/`, `.ipynb_checkpoints/`.
-- [ ] Download `dataset_phishing.csv` into `data/`. Check the licence on the Mendeley page: if it allows
+- [x] `.gitignore`: `.venv/`, `__pycache__/`, `.ipynb_checkpoints/`.
+- [x] Download `dataset_phishing.csv` into `data/`. Check the licence on the Mendeley page: if it allows
       redistribution, commit the file (it is small) and cite it; if not, add `data/` to `.gitignore`
       and describe the download in the README.
-- [ ] Create the folders from section 2.3 and merge to `main`.
+- [x] Create the folders from section 2.3.
+- [ ] Merge to `main`.
 
 **Done when:** both of us can create the environment from `requirements.txt` and see the CSV.
 
