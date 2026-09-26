@@ -143,3 +143,33 @@ Requested: reports and deliverables are handed in and must not refer to our inte
 The old T5 wording would have put a mention of the plan into the report, against the new
 `report-no-tasklist` skill. The rule in the global instructions is loaded in every session, so the skill
 is applied reliably and not only when its description happens to match.
+
+## 2026-09-26 12:06 EEST: Task T4, assembly script
+
+**What**
+- `tools/assemble.py`: created. Reads `parts/*.ipynb` in name order, takes the step marker from each
+  cell's first line (`# STEP A4` / `<!-- STEP A4 -->`), drops `STANDIN` cells and empty cells, sorts
+  by lab step (A0–A10, B1–B6, C1–C2, D1–D5, then extras X1–X5) while keeping notebook order inside a
+  step, adds a title cell, gives every cell a fresh id and no old outputs, validates, writes
+  `lab4_1_explaining_phishing_detectors.ipynb` and executes it from the repository root.
+  - Stops with a list of file + cell number for cells without a marker or with an unknown step.
+  - Prints which part notebook each step came from, warns when a step comes from more than one
+    notebook, and lists missing lab steps.
+  - Options: `--no-execute` (build only), `--strict` (fail if any lab step A0–D5 is missing, for the
+    hand-in), `--parts` and `--output` (used for testing).
+  - On an execution error it keeps the outputs up to the failing cell and exits with code 1.
+- `lab4_1_explaining_phishing_detectors.ipynb`: first generated version (title + steps A0–A3, executed).
+- `TASKLIST.md`: ticked T4 (execution is built into the script, so the separate nbconvert command is
+  no longer needed).
+
+**Why**
+Task T4: we work in separate part notebooks to avoid merge conflicts, but the lab requires one notebook
+that runs from top to bottom. Built early so that problems with markers show up long before the final
+assembly.
+
+**Verified**
+Real build from `parts/00_setup.ipynb` executes without errors, also when started from another folder.
+Throwaway tests in `/tmp` (deleted afterwards): cells from two part notebooks interleave in lab order;
+the stand-in cell never runs; the duplicate-step warning appears; unmarked cells and an unknown step
+stop the build with exit code 1; `--strict` exits 1 when steps are missing; a failing cell keeps the
+earlier outputs and exits 1.
