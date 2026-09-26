@@ -50,8 +50,8 @@ when a task is done.
 
 | ID | Task | What it is and why | Needs | Done |
 |---|---|---|---|---|
-| B1 | Read the glass boxes | Print the tree as rules and the 10 strongest logistic-regression weights; write the tree's first question in plain English | A4, A5 | ☐ |
-| B2 | SHAP for the supervised forest (global) | Bar and beeswarm plots and the top-10 list (`shap_top`). The ranking is also the input for the BRB in D1 | A6 | ☐ |
+| B1 | Read the glass boxes | Print the tree as rules and the 10 strongest logistic-regression weights; write the tree's first question in plain English | A4, A5 | ☑ |
+| B2 | SHAP for the supervised forest (global) | Bar and beeswarm plots and the top-10 list (`shap_top`). The ranking is also the input for the BRB in D1 | A6 | ☑ |
 | B3 | SHAP for the semi- and self-supervised models | TreeExplainer for the semi-supervised forest, the general `shap.Explainer` for the self-supervised model | A8, A9 | ☑ |
 | B4 | Do the models look at the same clues? | One table with the top-10 features of tree, logreg and the three SHAP rankings | B1–B3 | ☑ |
 | B5 | Pick three URLs to explain | The forest's surest phishing URL, surest legitimate URL and most confident mistake (`i_wrong`, reused in D5) | A6 | ☐ |
@@ -445,11 +445,11 @@ whether the unlabelled data helped.
 **Why:** Glass boxes need no SHAP or LIME: the model itself is the explanation. That is the baseline
 against which the post-hoc explanations are judged.
 
-- [ ] Print the tree with `export_text` and its number of leaves; save the text to
+- [x] Print the tree with `export_text` and its number of leaves; save the text to
       `results/tables/B1_tree_rules.txt`.
-- [ ] Logistic regression: the 10 largest weights by absolute value, with sign (positive = toward
+- [x] Logistic regression: the 10 largest weights by absolute value, with sign (positive = toward
       phishing), and how many weights have |w| > 0.01. Keep `w` as the global name (B4 uses it).
-- [ ] Write the tree's first question in plain English, and say whether it makes sense to a security
+- [x] Write the tree's first question in plain English, and say whether it makes sense to a security
       person (use the feature table in section 4 of the lab).
 
 **Done when:** tree rules, top-10 weights and the plain-English sentence are ready for the report.
@@ -459,11 +459,11 @@ against which the post-hoc explanations are judged.
 **Why:** SHAP shows which features the black box relies on overall. This ranking (`shap_top`) also
 decides which two features go into the BRB in D1.
 
-- [ ] `shap.TreeExplainer(rf)` on `X_test.iloc[:500]`; check the shape `(500, 87, 2)`; keep class 1
+- [x] `shap.TreeExplainer(rf)` on `X_test.iloc[:500]`; check the shape `(500, 87, 2)`; keep class 1
       (`sv1 = sv[:, :, 1]`).
-- [ ] Bar plot and beeswarm plot (top 10), saved to `results/figures/`.
-- [ ] `shap_top` and its top 10, saved to `results/tables/B2_shap_top.csv`.
-- [ ] Answer: are the red dots of the top feature on the right or the left, and what does that mean in
+- [x] Bar plot and beeswarm plot (top 10), saved to `results/figures/`.
+- [x] `shap_top` and its top 10, saved to `results/tables/B2_shap_top.csv`.
+- [x] Answer: are the red dots of the top feature on the right or the left, and what does that mean in
       plain words?
 
 **Done when:** both plots, the table and the answer exist.

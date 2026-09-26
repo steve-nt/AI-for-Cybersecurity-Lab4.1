@@ -1,8 +1,8 @@
 rank,tree,logreg,SHAP forest,SHAP semi,SHAP self
 1,google_index,longest_words_raw,google_index,google_index,google_index
 2,page_rank,page_rank,page_rank,web_traffic,nb_www
-3,nb_hyperlinks,phish_hints,nb_hyperlinks,page_rank,domain_age
-4,nb_www,google_index,web_traffic,nb_hyperlinks,nb_hyphens
+3,nb_hyperlinks,phish_hints,nb_hyperlinks,page_rank,nb_hyphens
+4,nb_www,google_index,web_traffic,nb_hyperlinks,domain_age
 5,nb_qm,avg_word_host,nb_www,nb_www,page_rank
 6,web_traffic,nb_hyphens,phish_hints,ratio_extHyperlinks,phish_hints
 7,phish_hints,nb_www,domain_age,ratio_extRedirection,prefix_suffix

@@ -1,0 +1,46 @@
+|--- google_index <= 0.50
+|   |--- page_rank <= 0.50
+|   |   |--- shortest_word_path <= 0.50
+|   |   |   |--- nb_www <= 0.50
+|   |   |   |   |--- class: 1
+|   |   |   |--- nb_www >  0.50
+|   |   |   |   |--- class: 0
+|   |   |--- shortest_word_path >  0.50
+|   |   |   |--- nb_hyphens <= 4.50
+|   |   |   |   |--- class: 1
+|   |   |   |--- nb_hyphens >  4.50
+|   |   |   |   |--- class: 0
+|   |--- page_rank >  0.50
+|   |   |--- nb_qm <= 0.50
+|   |   |   |--- phish_hints <= 1.50
+|   |   |   |   |--- class: 0
+|   |   |   |--- phish_hints >  1.50
+|   |   |   |   |--- class: 1
+|   |   |--- nb_qm >  0.50
+|   |   |   |--- nb_hyperlinks <= 32.50
+|   |   |   |   |--- class: 1
+|   |   |   |--- nb_hyperlinks >  32.50
+|   |   |   |   |--- class: 0
+|--- google_index >  0.50
+|   |--- page_rank <= 2.50
+|   |   |--- domain_in_brand <= 0.50
+|   |   |   |--- ratio_extRedirection <= 1.58
+|   |   |   |   |--- class: 1
+|   |   |   |--- ratio_extRedirection >  1.58
+|   |   |   |   |--- class: 0
+|   |   |--- domain_in_brand >  0.50
+|   |   |   |--- nb_slash <= 3.50
+|   |   |   |   |--- class: 1
+|   |   |   |--- nb_slash >  3.50
+|   |   |   |   |--- class: 0
+|   |--- page_rank >  2.50
+|   |   |--- nb_hyperlinks <= 36.50
+|   |   |   |--- nb_www <= 0.50
+|   |   |   |   |--- class: 1
+|   |   |   |--- nb_www >  0.50
+|   |   |   |   |--- class: 0
+|   |   |--- nb_hyperlinks >  36.50
+|   |   |   |--- web_traffic <= 4.50
+|   |   |   |   |--- class: 1
+|   |   |   |--- web_traffic >  4.50
+|   |   |   |   |--- class: 0

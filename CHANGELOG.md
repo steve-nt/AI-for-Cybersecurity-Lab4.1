@@ -268,3 +268,33 @@ supervised forest and 3 with the semi-supervised one. A throwaway assembly in `/
 temporary B2 made from the stand-in) ran top to bottom; A10 gave the same table as before. Running
 `parts/20_label_scarce.ipynb` takes about 9.5 minutes, 5.7 of them in the permutation explainer.
 `lab4_1_explaining_phishing_detectors.ipynb` was not rebuilt: it would stop at B4 until B1 and B2 exist.
+
+## 2026-09-26 22:40 EEST: Lab steps B1 and B2, seeded SHAP for the self-supervised model, full rebuild
+
+**What**
+- `parts/10_supervised_forest.ipynb`: added and executed:
+  - B1: tree rules (`export_text`, 16 leaves) saved to `results/tables/B1_tree_rules.txt`; the 10
+    strongest logistic-regression weights saved to `results/tables/B1_logreg_top10_weights.csv`;
+    "What we see" cell (first question = "Has Google indexed this page?"; 79 of 87 weights > 0.01).
+  - B2: SHAP for the supervised forest on 500 test URLs, shape (500, 87, 2) checked; bar and beeswarm
+    plots saved to `results/figures/B2_shap_forest_bar.png` and `B2_shap_forest_beeswarm.png`;
+    `shap_top` saved to `results/tables/B2_shap_top.csv`; "What we see" cell (red dots of
+    `google_index` on the right = not indexed pushes toward phishing).
+- `parts/20_label_scarce.ipynb` (B3): `shap.Explainer(self_prob, background, seed=42)`, re-executed.
+- `results/tables/B4_top10_lists.csv`, `results/figures/B3_*`: regenerated with the seeded explainer.
+- `lab4_1_explaining_phishing_detectors.ipynb`: rebuilt and executed; it now holds A0–A10 and B1–B4, all
+  real steps, and runs top to bottom without errors.
+- `TASKLIST.md`: ticked B1 and B2.
+
+**Why**
+B1/B2 are the glass-box and SHAP explanations of the supervised models, and `shap_top` is needed for the
+BRB (D1). The seed: the permutation explainer draws random feature orders, so without a seed the
+self-supervised SHAP ranking changed between runs (ranks 4 and 5 swapped in `B4_top10_lists.csv`), which
+breaks "the notebook reproduces your numbers". A quick test confirmed: no seed → different values,
+`seed=42` → identical values.
+
+**Verified**
+Supervised-forest SHAP top 5: `google_index`, `page_rank`, `nb_hyperlinks`, `web_traffic`, `nb_www`. The
+part notebook and the hand-in notebook now produce a byte-identical `B4_top10_lists.csv`. With the seed,
+the self-supervised top 10 contains the same features as before in a slightly different order, so the
+B4 answers still hold. The hand-in notebook takes about 9.5 minutes.
