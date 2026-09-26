@@ -660,8 +660,10 @@ The lab fixes the headings.
 - [ ] Who-did-what line, for example: "Kirill: setup, tree, logistic regression and forest, their
       SHAP/LIME explanations, ablation and LIME stability, README. Stefanos: repository, lower lines,
       semi- and self-supervised models, model comparison, BRB, notebook assembly."
-- [ ] Honesty: say that an AI assistant was used and for what (at least for this task plan). Cite the
-      dataset (Hannousse & Yahiouche, 2021), shap, lime, scikit-learn and the lab's example code.
+- [ ] Honesty: say that an AI assistant was used and for what (at least for planning the work). Cite
+      the dataset (Hannousse & Yahiouche, 2021), shap, lime, scikit-learn and the lab's example code.
+- [ ] The report never mentions this task list: no file name, no task IDs (T1–T7, X1–X5), no
+      checkboxes. The lab's own step names (A1–D5) are fine.
 - [ ] Final assembly and PDF export: Kirill.
 
 **Done when:** the PDF is 2–3 pages plus the appendix, and every number in it matches the assembled

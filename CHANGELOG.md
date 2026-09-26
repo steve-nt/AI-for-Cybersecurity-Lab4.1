@@ -117,3 +117,29 @@ the instructions.
 Executed with nbconvert: all asserts pass. A throwaway notebook in `parts/` ran `%run 00_setup.ipynb`,
 ended up in the repository root, and scored a 300-tree forest with `report()` on validation (macro-F1
 0.961); the throwaway notebook was deleted afterwards.
+
+## 2026-09-26 11:44 EEST: Global report-no-tasklist skill (outside this repository)
+
+**What**
+- `~/.claude/skills/report-no-tasklist/SKILL.md`: created. For any file whose name contains "report"
+  or "deliverable" (any capitalisation or extension), and for scripts or drafts that write into one: never
+  mention a task list (task-list file names, the words "task list" or "tasklist", internal task IDs such as
+  T1–T7 or X1–X5, checkboxes, plan schedules). The assignment's own step names (e.g. "Step A4") are
+  still allowed. Includes a grep check for leftovers.
+
+**Why**
+Requested: reports and deliverables are handed in and must not refer to our internal planning file.
+
+## 2026-09-26 11:46 EEST: Make the report rule consistent and dependable
+
+**What**
+- `TASKLIST.md` (T5): the AI-use line now says "at least for planning the work" instead of "at least for
+  this task plan", and a new checklist item says that the report never mentions the task list (the
+  lab's own step names A1–D5 are fine).
+- `~/.claude/CLAUDE.md` (outside this repository): added the section "Reports and deliverables: never
+  mention a task list", which points to the `report-no-tasklist` skill.
+
+**Why**
+The old T5 wording would have put a mention of the plan into the report, against the new
+`report-no-tasklist` skill. The rule in the global instructions is loaded in every session, so the skill
+is applied reliably and not only when its description happens to match.
