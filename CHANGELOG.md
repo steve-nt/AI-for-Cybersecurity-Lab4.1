@@ -237,3 +237,34 @@ Test set (macro-F1 / recall / FAR): tree 0.927 / 0.912 / 0.057; logreg 0.947 / 0
 0.965 / 0.968 / 0.038; forest (5%) 0.941 / 0.942 / 0.061; logreg (5%) 0.912 / 0.908 / 0.084; semi-supervised
 0.934 / 0.940 / 0.071; self-supervised 0.918 / 0.922 / 0.087. In a throwaway assembly in `/tmp` with
 A4–A6 present as real steps, the notebook ran top to bottom and A10 gave the same table.
+
+## 2026-09-26 22:06 EEST: Lab steps A4–A6, B3 and B4
+
+**What**
+- `parts/10_supervised_forest.ipynb`: created and stored with its outputs. Title and `%run 00_setup.ipynb`
+  marked `STANDIN`, then:
+  - A4: decision tree, depth 3 and 4 compared on validation; depth 4 kept. Both depths saved to
+    `results/tables/A4_tree_depth.csv`.
+  - A5: logistic regression in a scaler Pipeline. A6: Random Forest, 300 trees, all labels.
+- `parts/20_label_scarce.ipynb`: added and executed:
+  - B3: SHAP for the semi-supervised forest (TreeExplainer, 500 test URLs) and the self-supervised model
+    (permutation explainer, 100 training URLs as background, 200 test URLs, `silent=True` to keep a
+    200-line progress bar out of the notebook). Beeswarms saved to
+    `results/figures/B3_shap_self_beeswarm.png` and `B3_shap_semi_beeswarm.png`.
+  - A `STANDIN B1-B2` cell with the lab's code for `w` and `sv1`.
+  - B4: the 5-column top-10 table saved to `results/tables/B4_top10_lists.csv`, counts per feature, the
+    overlap between the lists, and a "What we see" Markdown cell with the answers.
+- `TASKLIST.md`: ticked A4, A5, A6, B3 and B4.
+
+**Why**
+A4–A6 are the supervised models that A10 and B1/B2/B5 need. With them in place, the assembled notebook
+no longer depends on the A4–A6 stand-in. B3/B4 answer whether the models look at the same clues.
+
+**Verified**
+Validation: tree depth 3 macro-F1 0.913, depth 4 0.925 (kept); logreg 0.938; forest 0.961. No
+ConvergenceWarning. SHAP shapes (500, 87) and (200, 87). `google_index`, `page_rank` and `nb_www` are in
+all 5 top-10 lists; the two forests share 8 of 10 features, the self-supervised model shares 5 with the
+supervised forest and 3 with the semi-supervised one. A throwaway assembly in `/tmp` (real parts plus a
+temporary B2 made from the stand-in) ran top to bottom; A10 gave the same table as before. Running
+`parts/20_label_scarce.ipynb` takes about 9.5 minutes, 5.7 of them in the permutation explainer.
+`lab4_1_explaining_phishing_detectors.ipynb` was not rebuilt: it would stop at B4 until B1 and B2 exist.

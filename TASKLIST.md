@@ -38,9 +38,9 @@ when a task is done.
 | ID | Task | What it is and why | Needs | Done |
 |---|---|---|---|---|
 | A1–A3 | Load the data, split it, `report()` helper | Done in **T3** (setup notebook), because every other notebook starts from these steps | T2 | see T3 |
-| A4 | Glass box 1: small decision tree | Depth 3 and 4, keep the better one on **validation**. It is the readable model we read in B1 | T3 | ☐ |
-| A5 | Glass box 2: logistic regression | Scaled inside a Pipeline, one weight per feature. The second readable model | T3 | ☐ |
-| A6 | Black box: Random Forest, 100% labels | 300 trees. The **upper line**: the best score to expect when every URL has a label | T3 | ☐ |
+| A4 | Glass box 1: small decision tree | Depth 3 and 4, keep the better one on **validation**. It is the readable model we read in B1 | T3 | ☑ |
+| A5 | Glass box 2: logistic regression | Scaled inside a Pipeline, one weight per feature. The second readable model | T3 | ☑ |
+| A6 | Black box: Random Forest, 100% labels | 300 trees. The **upper line**: the best score to expect when every URL has a label | T3 | ☑ |
 | A7 | Hide 95% of the labels and train the lower lines | 5% labelled split made from the **training set only**; forest and logreg on the 5% alone. Without these baselines we cannot tell whether unlabelled data helped | T3 | ☑ |
 | A8 | Semi-supervised: pseudo-labelling | Three rounds at CUTOFF 0.9. Use `y_hidden` **only** to check how accurate the guesses were | A7 | ☑ |
 | A9 | Self-supervised: fill-in-the-blanks network | Hide 20% of the scaled values, learn 32 hidden numbers per URL without labels, then logistic regression on the 5% labels | A7 | ☑ |
@@ -52,8 +52,8 @@ when a task is done.
 |---|---|---|---|---|
 | B1 | Read the glass boxes | Print the tree as rules and the 10 strongest logistic-regression weights; write the tree's first question in plain English | A4, A5 | ☐ |
 | B2 | SHAP for the supervised forest (global) | Bar and beeswarm plots and the top-10 list (`shap_top`). The ranking is also the input for the BRB in D1 | A6 | ☐ |
-| B3 | SHAP for the semi- and self-supervised models | TreeExplainer for the semi-supervised forest, the general `shap.Explainer` for the self-supervised model | A8, A9 | ☐ |
-| B4 | Do the models look at the same clues? | One table with the top-10 features of tree, logreg and the three SHAP rankings | B1–B3 | ☐ |
+| B3 | SHAP for the semi- and self-supervised models | TreeExplainer for the semi-supervised forest, the general `shap.Explainer` for the self-supervised model | A8, A9 | ☑ |
+| B4 | Do the models look at the same clues? | One table with the top-10 features of tree, logreg and the three SHAP rankings | B1–B3 | ☑ |
 | B5 | Pick three URLs to explain | The forest's surest phishing URL, surest legitimate URL and most confident mistake (`i_wrong`, reused in D5) | A6 | ☐ |
 | B6 | Local explanations with SHAP and LIME | Waterfall plots and LIME charts, with fit scores, for the three URLs | B2, B5 | ☐ |
 
@@ -362,8 +362,8 @@ lab asks for.
 **Why:** A tree of depth 3–4 is a set of yes/no questions an analyst can read. It shows how much
 accuracy we give up for full readability.
 
-- [ ] Try depth 3 and 4 and keep the better one on **validation** macro-F1 (never on test).
-- [ ] Print the validation scores of both depths; save them to `results/tables/A4_tree_depth.csv`.
+- [x] Try depth 3 and 4 and keep the better one on **validation** macro-F1 (never on test).
+- [x] Print the validation scores of both depths; save them to `results/tables/A4_tree_depth.csv`.
 
 **Done when:** `tree` exists and you know which depth was kept, and why.
 
@@ -372,8 +372,8 @@ accuracy we give up for full readability.
 **Why:** One weight per feature, readable directly. The scaler inside the Pipeline is fitted on the
 training data only, which is what makes the weights comparable without leaking test data.
 
-- [ ] Pipeline `StandardScaler` → `LogisticRegression(max_iter=1000)`, fit on the full training set.
-- [ ] A `ConvergenceWarning` is only a warning; raise `max_iter` if you want it gone, and say so.
+- [x] Pipeline `StandardScaler` → `LogisticRegression(max_iter=1000)`, fit on the full training set.
+- [x] A `ConvergenceWarning` is only a warning; raise `max_iter` if you want it gone, and say so.
 
 **Done when:** `logreg` exists with its validation scores.
 
@@ -382,7 +382,7 @@ training data only, which is what makes the weights comparable without leaking t
 **Why:** The upper line: the best we can hope for when every URL is labelled. Every other detector is
 measured against it.
 
-- [ ] `RandomForestClassifier(n_estimators=300, random_state=42, n_jobs=-1)` on the full training set.
+- [x] `RandomForestClassifier(n_estimators=300, random_state=42, n_jobs=-1)` on the full training set.
 
 **Done when:** `rf` exists with its validation scores.
 
@@ -473,10 +473,10 @@ decides which two features go into the BRB in D1.
 **Why:** Do models trained with fewer labels rely on the same clues? The self-supervised model is not a
 tree, so it needs the slower general explainer.
 
-- [ ] `sv_semi`: `TreeExplainer(rf_semi)` on the same 500 test rows, class 1.
-- [ ] `sv_self`: `shap.Explainer(self_prob, background)` with 100 training rows as background
+- [x] `sv_semi`: `TreeExplainer(rf_semi)` on the same 500 test rows, class 1.
+- [x] `sv_self`: `shap.Explainer(self_prob, background)` with 100 training rows as background
       (`random_state=42`), on the first 200 test rows. Check the shapes `(500, 87)` and `(200, 87)`.
-- [ ] Beeswarm for the self-supervised model, saved to `results/figures/`.
+- [x] Beeswarm for the self-supervised model, saved to `results/figures/`.
 
 **Done when:** `sv_semi` and `sv_self` exist, and the beeswarm is saved.
 
@@ -486,10 +486,10 @@ tree, so it needs the slower general explainer.
 also what an attacker would try to fake. If the self-supervised model looks elsewhere, that is a
 finding.
 
-- [ ] Stand-ins for `w` (B1) and `sv1` (B2) until sync 3.
-- [ ] The 5-column top-10 table (tree, logreg, SHAP forest, SHAP semi, SHAP self), saved to
+- [x] Stand-ins for `w` (B1) and `sv1` (B2) until sync 3.
+- [x] The 5-column top-10 table (tree, logreg, SHAP forest, SHAP semi, SHAP self), saved to
       `results/tables/B4_top10_lists.csv`.
-- [ ] Count in how many lists each feature appears; write down the features in (almost) every list,
+- [x] Count in how many lists each feature appears; write down the features in (almost) every list,
       and whether the self-supervised model differs from the two forests.
 
 **Done when:** the table is saved and the two questions are answered.
