@@ -322,16 +322,16 @@ match at sync 3 and the "notebook reproduces your numbers" criterion (30%) is at
 **Why:** Every part notebook starts from these cells, so they must be on `main` first. Getting the
 split right here (stratified, fixed seed) covers part of the methodology grade for every later step.
 
-- [ ] `# STEP A0`: `%pip install -q shap lime` (needed in Colab, harmless locally) and the imports.
-- [ ] `# STEP A1`: load the data. If the working directory is `parts/`, `os.chdir("..")` first, so
+- [x] `# STEP A0`: `%pip install -q shap lime` (needed in Colab, harmless locally) and the imports.
+- [x] `# STEP A1`: load the data. If the working directory is `parts/`, `os.chdir("..")` first, so
       that `data/` and `results/` mean the same thing in the part notebooks and in the final notebook.
       Then use `data/dataset_phishing.csv` if it exists, otherwise `dataset_phishing.csv` (the Colab
       upload). Print shape and class counts.
-- [ ] `# STEP A2`: label `y = (status == "phishing")`, drop `url` and `status`, `.astype(float)`,
+- [x] `# STEP A2`: label `y = (status == "phishing")`, drop `url` and `status`, `.astype(float)`,
       60/20/20 split with `stratify` and `random_state=42`.
-- [ ] `# STEP A3`: the `report()` helper exactly as in the lab (macro-F1, recall, ROC-AUC, FAR, 3
+- [x] `# STEP A3`: the `report()` helper exactly as in the lab (macro-F1, recall, ROC-AUC, FAR, 3
       decimals).
-- [ ] Add `assert`s for the numbers the lab gives: shape `(11430, 89)`, 5,715 per class, split sizes
+- [x] Add `assert`s for the numbers the lab gives: shape `(11430, 89)`, 5,715 per class, split sizes
       6,858 / 2,286 / 2,286, and roughly 50% phishing in each part.
 - [ ] Merge to `main` the same day and tell Stefanos.
 

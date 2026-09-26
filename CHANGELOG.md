@@ -91,3 +91,29 @@ loaded in every session, so the changelog is written after every change, not onl
 The changelog skill was created after the earlier changes were made, so they were recorded afterwards.
 Their times come from the git commit times (`9bbcbea`, `23ceb27`) and the files' modification times,
 not from memory.
+
+## 2026-09-26 11:05 EEST: Task T3, setup notebook (lab steps A0–A3)
+
+**What**
+- `parts/00_setup.ipynb`: created and stored with its outputs. One Markdown and one code cell per step,
+  each starting with its step marker (`<!-- STEP A0 -->` / `# STEP A0` … `A3`):
+  - A0: installs shap and lime only when they are missing (Colab); locally they come from
+    `requirements.txt`, because the uv environment has no pip.
+  - A1: moves to the repository root when run from `parts/`, loads `data/dataset_phishing.csv` (or
+    `dataset_phishing.csv` in Colab), creates `results/figures/` and `results/tables/`, and asserts shape
+    (11430, 89) and 5,715 URLs per class.
+  - A2: the lab's label, feature matrix and 60/20/20 stratified split (`random_state=42`), with asserts
+    for 87 features, 6,858 / 2,286 / 2,286 rows and a 50% phishing share in each part.
+  - A3: the lab's `report()` helper, unchanged.
+- `TASKLIST.md`: ticked the finished T3 items (the merge to `main` is still open).
+
+**Why**
+Task T3: every part notebook starts with `%run 00_setup.ipynb`, so the data, split and `report()` must
+be identical for both of us. The asserts stop a notebook early if the data or split ever differ from
+the numbers the lab gives. The code follows the lab's example so that the assembled notebook matches
+the instructions.
+
+**Verified**
+Executed with nbconvert: all asserts pass. A throwaway notebook in `parts/` ran `%run 00_setup.ipynb`,
+ended up in the repository root, and scored a 300-tree forest with `report()` on validation (macro-F1
+0.961); the throwaway notebook was deleted afterwards.
