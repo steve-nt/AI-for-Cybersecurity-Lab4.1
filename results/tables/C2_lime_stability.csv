@@ -1,0 +1,6 @@
+seed,LIME_top3,same_as_most_common
+0,"0.00 < google_index <= 1.00, nb_www <= 0.00, page_rank <= 1.00",True
+1,"0.00 < google_index <= 1.00, nb_www <= 0.00, page_rank <= 1.00",True
+2,"0.00 < google_index <= 1.00, nb_www <= 0.00, page_rank <= 1.00",True
+3,"0.00 < google_index <= 1.00, nb_www <= 0.00, page_rank <= 1.00",True
+4,"0.00 < google_index <= 1.00, nb_www <= 0.00, page_rank <= 1.00",True

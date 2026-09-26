@@ -61,8 +61,8 @@ when a task is done.
 
 | ID | Task | What it is and why | Needs | Done |
 |---|---|---|---|---|
-| C1 | Ablation: remove the 7 external features | Retrain the forest without live lookups: how much does it depend on them, and what does it look at instead? | A6 | ☐ |
-| C2 | Stability of LIME | LIME 5 times with 5 seeds on the same URL: how often is the top 3 the same? SHAP gives 5 of 5 | B5, B6 | ☐ |
+| C1 | Ablation: remove the 7 external features | Retrain the forest without live lookups: how much does it depend on them, and what does it look at instead? | A6 | ☑ |
+| C2 | Stability of LIME | LIME 5 times with 5 seeds on the same URL: how often is the top 3 the same? SHAP gives 5 of 5 | B5, B6 | ☑ |
 
 ### Part D: from explanations to rules (BRB)
 
@@ -529,11 +529,11 @@ assumptions let us check one against the other.
 always available, and a brand-new phishing site has no history yet. The ablation shows how much the
 forest depends on them.
 
-- [ ] Check that all 7 names in `EXTERNAL` are columns of `X_train` before dropping them.
-- [ ] Retrain `rf_ne` without them, score both forests on the test set, save
+- [x] Check that all 7 names in `EXTERNAL` are columns of `X_train` before dropping them.
+- [x] Retrain `rf_ne` without them, score both forests on the test set, save
       `results/tables/C1_ablation.csv`.
-- [ ] SHAP top 5 of `rf_ne`: now only URL and page features.
-- [ ] Answer: how much did macro-F1, recall and FAR change? Would you deploy the model without live
+- [x] SHAP top 5 of `rf_ne`: now only URL and page features.
+- [x] Answer: how much did macro-F1, recall and FAR change? Would you deploy the model without live
       lookups, and why?
 
 **Done when:** the table, the new top 5 and the answer exist.
@@ -543,7 +543,7 @@ forest depends on them.
 **Why:** LIME is random: another seed can give another explanation. An explanation that changes from run
 to run is hard to trust in an incident report. SHAP TreeExplainer is exact, so it gives 5 of 5.
 
-- [ ] LIME on `i_phish` with seeds 0–4, as in the lab; count how often the top 3 is the same; save
+- [x] LIME on `i_phish` with seeds 0–4, as in the lab; count how often the top 3 is the same; save
       `results/tables/C2_lime_stability.csv`.
 - [ ] Write both numbers in the report: LIME k of 5, SHAP 5 of 5.
 - [ ] Optional X2: repeat on `i_legit` and `i_wrong`, and run the SHAP explainer twice on the same URL

@@ -321,3 +321,26 @@ the BRB in D5.
 not indexed, 5 links, no "www", no traffic rank. SHAP and LIME share 2, 1 and 2 of their top 3 features;
 LIME fit scores are 0.63, 0.42 and 0.48. The hand-in notebook was not rebuilt in this step (it will be
 rebuilt after Part D).
+
+## 2026-09-26 23:00 EEST: Lab steps C1 and C2, ablation and LIME stability
+
+**What**
+- `parts/10_supervised_forest.ipynb`: added and executed:
+  - C1: forest retrained without the 7 external features (names checked against the columns first),
+    both forests scored on the test set and saved with the change to `results/tables/C1_ablation.csv`;
+    SHAP top 10 of the new forest saved to `results/tables/C1_shap_top_without_external.csv`.
+  - C2: LIME 5 times with seeds 0–4 on the surest phishing URL, as in the lab, saved to
+    `results/tables/C2_lime_stability.csv`; plus SHAP run 5 times on the same URL, so that "SHAP 5 of 5"
+    is measured, not assumed.
+  - "What we see" cells for C1 and C2.
+- `TASKLIST.md`: ticked C1 and C2 (the "write both numbers in the report" item stays open for the
+  report).
+
+**Why**
+C1 shows how much the detector depends on live lookups; C2 tests whether the LIME explanation can be
+trusted from run to run.
+
+**Verified**
+Without external features: macro-F1 0.965 → 0.944, recall 0.968 → 0.940, FAR 0.038 → 0.052; new top 5
+`nb_hyperlinks`, `nb_www`, `phish_hints`, `safe_anchor`, `ratio_extHyperlinks`. LIME 5 of 5 same top 3,
+SHAP 5 of 5 identical values. The part notebook now takes about 8.5 minutes.

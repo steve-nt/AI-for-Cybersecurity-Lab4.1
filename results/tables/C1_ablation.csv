@@ -1,0 +1,4 @@
+forest,macro_F1,recall,ROC_AUC,FAR
+with external (87 features),0.965,0.968,0.994,0.038
+without external (80 features),0.944,0.94,0.984,0.052
+change,-0.021,-0.028,-0.01,0.014
