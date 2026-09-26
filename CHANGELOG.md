@@ -210,3 +210,30 @@ Validation scores (macro-F1 / recall / FAR): forest 5% 0.938 / 0.946 / 0.069; lo
 0.912 / 0.915 / 0.092; semi-supervised 0.931 / 0.946 / 0.083; self-supervised 0.914 / 0.918 / 0.090.
 Pseudo-labels: 2,778 + 1,122 + 365 added, accuracy 99.4% → 98.5% → 95.6% per round (98.9% overall).
 The assembled notebook runs top to bottom and gives the same numbers.
+
+## 2026-09-26 21:30 EEST: Warning filter and lab step A10
+
+**What**
+- `parts/00_setup.ipynb` (A0): added `warnings.filterwarnings("ignore", message="Unknown solver options")`,
+  with a comment; re-executed.
+- `parts/20_label_scarce.ipynb`: re-executed without the warning, and added:
+  - a `STANDIN A4-A6` cell with the lab's code for `tree`, `logreg` and `rf` (dropped by the assembler);
+  - A10: the 7 detectors on the test set, saved to `results/tables/A10_test_scores.csv`, with the two
+    lower-line comparisons and the distance to the upper line printed;
+  - an A10 Markdown cell "What we see" that answers the two "Check yourself" questions with the numbers.
+- `results/tables/A10_test_scores.csv`: created by A10.
+- `TASKLIST.md`: ticked A10.
+- `lab4_1_explaining_phishing_detectors.ipynb`: overwritten by a build-only run
+  (`tools/assemble.py --no-execute`), so it now has no outputs and cannot run past A10 until the real
+  A4–A6 cells exist. The committed version (executed, A0–A9) can be restored from git.
+
+**Why**
+scipy 1.18 with scikit-learn 1.6.1 printed a harmless `OptimizeWarning: Unknown solver options: iprint`
+for every logistic regression. A10 is the main results table and answers whether the unlabelled data
+helped.
+
+**Verified**
+Test set (macro-F1 / recall / FAR): tree 0.927 / 0.912 / 0.057; logreg 0.947 / 0.943 / 0.050; forest (100%)
+0.965 / 0.968 / 0.038; forest (5%) 0.941 / 0.942 / 0.061; logreg (5%) 0.912 / 0.908 / 0.084; semi-supervised
+0.934 / 0.940 / 0.071; self-supervised 0.918 / 0.922 / 0.087. In a throwaway assembly in `/tmp` with
+A4–A6 present as real steps, the notebook ran top to bottom and A10 gave the same table.

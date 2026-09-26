@@ -44,7 +44,7 @@ when a task is done.
 | A7 | Hide 95% of the labels and train the lower lines | 5% labelled split made from the **training set only**; forest and logreg on the 5% alone. Without these baselines we cannot tell whether unlabelled data helped | T3 | ☑ |
 | A8 | Semi-supervised: pseudo-labelling | Three rounds at CUTOFF 0.9. Use `y_hidden` **only** to check how accurate the guesses were | A7 | ☑ |
 | A9 | Self-supervised: fill-in-the-blanks network | Hide 20% of the scaled values, learn 32 hidden numbers per URL without labels, then logistic regression on the 5% labels | A7 | ☑ |
-| A10 | All seven detectors on the same test set | The main results table of the report, and the answer to "did the unlabelled data help?" | A4–A9 | ☐ |
+| A10 | All seven detectors on the same test set | The main results table of the report, and the answer to "did the unlabelled data help?" | A4–A9 | ☑ |
 
 ### Part B: explain the detectors
 
@@ -431,9 +431,9 @@ fair comparison is `logreg_few`, since both are logistic regressions on the same
 **Why:** This is the main results table, and it answers the two "Check yourself" questions that tell us
 whether the unlabelled data helped.
 
-- [ ] Stand-in cells for `tree`, `logreg`, `rf` (lab code from A4–A6) until sync 3.
-- [ ] Build the 7-row table on `X_test`, save `results/tables/A10_test_scores.csv`.
-- [ ] Answer in two sentences each: did semi-supervised beat forest (5%)? Did self-supervised beat
+- [x] Stand-in cells for `tree`, `logreg`, `rf` (lab code from A4–A6) until sync 3.
+- [x] Build the 7-row table on `X_test`, save `results/tables/A10_test_scores.csv`.
+- [x] Answer in two sentences each: did semi-supervised beat forest (5%)? Did self-supervised beat
       logreg (5%)? How far is each from the upper line?
 
 **Done when:** the table is saved and both questions are answered with the numbers.
