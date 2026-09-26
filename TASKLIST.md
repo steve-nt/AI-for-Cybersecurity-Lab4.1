@@ -54,8 +54,8 @@ when a task is done.
 | B2 | SHAP for the supervised forest (global) | Bar and beeswarm plots and the top-10 list (`shap_top`). The ranking is also the input for the BRB in D1 | A6 | ☑ |
 | B3 | SHAP for the semi- and self-supervised models | TreeExplainer for the semi-supervised forest, the general `shap.Explainer` for the self-supervised model | A8, A9 | ☑ |
 | B4 | Do the models look at the same clues? | One table with the top-10 features of tree, logreg and the three SHAP rankings | B1–B3 | ☑ |
-| B5 | Pick three URLs to explain | The forest's surest phishing URL, surest legitimate URL and most confident mistake (`i_wrong`, reused in D5) | A6 | ☐ |
-| B6 | Local explanations with SHAP and LIME | Waterfall plots and LIME charts, with fit scores, for the three URLs | B2, B5 | ☐ |
+| B5 | Pick three URLs to explain | The forest's surest phishing URL, surest legitimate URL and most confident mistake (`i_wrong`, reused in D5) | A6 | ☑ |
+| B6 | Local explanations with SHAP and LIME | Waterfall plots and LIME charts, with fit scores, for the three URLs | B2, B5 | ☑ |
 
 ### Part C: test the detector and the explanation
 
@@ -499,10 +499,10 @@ finding.
 **Why:** A surely-phishing, a surely-legitimate and a confident mistake: mistakes teach the most. The
 mistake (`i_wrong`) is explained again by the BRB in D5.
 
-- [ ] Code as in the lab. The indices are **positions** in `X_test`, so always use `.iloc`.
-- [ ] Print each URL's probability and true label, and look up the raw URL text
+- [x] Code as in the lab. The indices are **positions** in `X_test`, so always use `.iloc`.
+- [x] Print each URL's probability and true label, and look up the raw URL text
       (`df.loc[X_test.index[i], "url"]`) so the report can say what the mistake looked like.
-- [ ] Save `results/tables/B5_three_urls.csv` (name, position, P(phishing), true label, URL).
+- [x] Save `results/tables/B5_three_urls.csv` (name, position, P(phishing), true label, URL).
 
 **Done when:** `three`, `i_phish`, `i_legit` and `i_wrong` exist and the table is saved.
 
@@ -511,12 +511,12 @@ mistake (`i_wrong`) is explained again by the BRB in D5.
 **Why:** A local explanation answers the analyst's question "why this URL?". Two methods with different
 assumptions let us check one against the other.
 
-- [ ] SHAP waterfall for each of the three URLs (top 10), saved.
-- [ ] LIME with the lab's settings (`discretize_continuous=True`, `random_state=42`, 8 features, 5,000
+- [x] SHAP waterfall for each of the three URLs (top 10), saved.
+- [x] LIME with the lab's settings (`discretize_continuous=True`, `random_state=42`, 8 features, 5,000
       samples) and `predict_fn`, which puts the column names back. Save the charts and print the fit
       scores.
-- [ ] Flag every fit score below 0.5 ("do not trust it much", section 3.4 of the lab).
-- [ ] For the wrong URL: which features fooled the forest? Do SHAP and LIME name the same top 3?
+- [x] Flag every fit score below 0.5 ("do not trust it much", section 3.4 of the lab).
+- [x] For the wrong URL: which features fooled the forest? Do SHAP and LIME name the same top 3?
       Record the overlap for all three URLs in `results/tables/B6_shap_vs_lime_top3.csv`.
 
 **Done when:** 3 waterfalls, 3 LIME charts, the fit scores and the top-3 overlap are saved.

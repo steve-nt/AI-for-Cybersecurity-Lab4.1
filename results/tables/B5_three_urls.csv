@@ -1,0 +1,4 @@
+name,position,P_phishing,true_label,url
+phishing,34,1.0,1,https://support-appleld.com.secureupdate.duilawyeryork.com/ap/51cc2cb1e0c8fd3/?cmd=_update&dispatch=51cc2cb1e0c8fd345&locale=_
+legitimate,10,0.0,0,http://en.academic.ru/dic.nsf/enwiki/100376
+wrong,1257,0.95,0,http://graphicsfairy.blogspot.ru/

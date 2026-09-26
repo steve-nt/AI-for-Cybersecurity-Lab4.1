@@ -1,0 +1,4 @@
+name,SHAP_top3,LIME_top3,shared,LIME_fit_score
+phishing,"page_rank, google_index, length_hostname","google_index, page_rank, nb_www",2,0.627
+legitimate,"google_index, web_traffic, nb_hyperlinks","google_index, iframe, nb_www",1,0.42
+wrong,"google_index, nb_hyperlinks, nb_www","google_index, nb_www, web_traffic",2,0.481

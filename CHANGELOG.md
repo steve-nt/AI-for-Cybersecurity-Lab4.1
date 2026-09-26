@@ -298,3 +298,26 @@ Supervised-forest SHAP top 5: `google_index`, `page_rank`, `nb_hyperlinks`, `web
 part notebook and the hand-in notebook now produce a byte-identical `B4_top10_lists.csv`. With the seed,
 the self-supervised top 10 contains the same features as before in a slightly different order, so the
 B4 answers still hold. The hand-in notebook takes about 9.5 minutes.
+
+## 2026-09-26 22:50 EEST: Lab steps B5 and B6, three URLs explained locally
+
+**What**
+- `parts/10_supervised_forest.ipynb`: added and executed:
+  - B5: the forest's surest phishing URL (test row 34), surest legitimate URL (row 10) and most
+    confident mistake (row 1257), as in the lab, with the raw URL text; saved to
+    `results/tables/B5_three_urls.csv`.
+  - B6: SHAP waterfalls (`results/figures/B6_shap_waterfall_<name>.png`) and LIME charts with the lab's
+    settings (`results/figures/B6_lime_<name>.png`), fit scores below 0.5 flagged, and the SHAP-vs-LIME
+    top-3 comparison saved to `results/tables/B6_shap_vs_lime_top3.csv`.
+  - "What we see" cells for B5 and B6.
+- `TASKLIST.md`: ticked B5 and B6.
+
+**Why**
+Local explanations answer the analyst's "why this URL?". The mistake (`i_wrong`) is explained again by
+the BRB in D5.
+
+**Verified**
+80 test mistakes of 2,286. The mistake is `http://graphicsfairy.blogspot.ru/` (legitimate, P = 0.950):
+not indexed, 5 links, no "www", no traffic rank. SHAP and LIME share 2, 1 and 2 of their top 3 features;
+LIME fit scores are 0.63, 0.42 and 0.48. The hand-in notebook was not rebuilt in this step (it will be
+rebuilt after Part D).
