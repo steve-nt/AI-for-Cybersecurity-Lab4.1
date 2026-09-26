@@ -37,6 +37,7 @@ when a task is done.
 
 | ID | Task | What it is and why | Needs | Done |
 |---|---|---|---|---|
+| A1–A3 | Load the data, split it, `report()` helper | Done in **T3** (setup notebook), because every other notebook starts from these steps | T2 | see T3 |
 | A4 | Glass box 1: small decision tree | Depth 3 and 4, keep the better one on **validation**. It is the readable model we read in B1 | T3 | ☐ |
 | A5 | Glass box 2: logistic regression | Scaled inside a Pipeline, one weight per feature. The second readable model | T3 | ☐ |
 | A6 | Black box: Random Forest, 100% labels | 300 trees. The **upper line**: the best score to expect when every URL has a label | T3 | ☐ |

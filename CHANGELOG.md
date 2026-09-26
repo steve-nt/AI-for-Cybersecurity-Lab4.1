@@ -173,3 +173,12 @@ Throwaway tests in `/tmp` (deleted afterwards): cells from two part notebooks in
 the stand-in cell never runs; the duplicate-step warning appears; unmarked cells and an unknown step
 stop the build with exit code 1; `--strict` exits 1 when steps are missing; a failing cell keeps the
 earlier outputs and exits 1.
+
+## 2026-09-26 12:18 EEST: Point from Part A to the setup steps
+
+**What**
+- `TASKLIST.md`: added a first row "A1–A3" to the Part A table of the task overview, pointing to T3.
+
+**Why**
+The Part A table started at A4, which looked like a numbering gap. The lab's steps A1–A3 are done in T3
+(setup notebook), and the new row says so.
