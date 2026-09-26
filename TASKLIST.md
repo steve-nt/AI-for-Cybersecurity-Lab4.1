@@ -68,11 +68,11 @@ when a task is done.
 
 | ID | Task | What it is and why | Needs | Done |
 |---|---|---|---|---|
-| D1 | Choose the two antecedent features | Top two of the SHAP ranking with more than 2 distinct values, or a hand-picked pair with a reason | B2 | ☐ |
-| D2 | BRB engine | Input transformation, activation weights and Evidential Reasoning with an Unknown part | T3 | ☐ |
-| D3 | Referential values and the 9 rules | Low/Medium/High from training percentiles; each rule's beliefs from its share of phishing URLs; the hand-edit experiment | D1, D2 | ☐ |
-| D4 | BRB as a phishing detector | Utility gives one phishing score; compared with a tree and a forest that see the same two features | D3 | ☐ |
-| D5 | Explain one URL with the rules, LIME and SHAP | Which rules fire for the forest's mistake, how much is Unknown, and do LIME and SHAP agree with the rules? | D4, B5 | ☐ |
+| D1 | Choose the two antecedent features | Top two of the SHAP ranking with more than 2 distinct values, or a hand-picked pair with a reason | B2 | ☑ |
+| D2 | BRB engine | Input transformation, activation weights and Evidential Reasoning with an Unknown part | T3 | ☑ |
+| D3 | Referential values and the 9 rules | Low/Medium/High from training percentiles; each rule's beliefs from its share of phishing URLs; the hand-edit experiment | D1, D2 | ☑ |
+| D4 | BRB as a phishing detector | Utility gives one phishing score; compared with a tree and a forest that see the same two features | D3 | ☑ |
+| D5 | Explain one URL with the rules, LIME and SHAP | Which rules fire for the forest's mistake, how much is Unknown, and do LIME and SHAP agree with the rules? | D4, B5 | ☑ |
 
 ### Optional extras
 
@@ -562,12 +562,12 @@ the small tree get almost the same macro-F1, so the interesting part is the comp
 **Why:** The BRB can only reason about the features we give it, and each needs Low / Medium / High. A 0/1
 feature such as `google_index` cannot have three levels.
 
-- [ ] `ranked` = SHAP ranking without features that have 2 or fewer distinct values; `F1, F2` = the
+- [x] `ranked` = SHAP ranking without features that have 2 or fewer distinct values; `F1, F2` = the
       first two.
-- [ ] Check that each has three **different** referential values (5th percentile < median < 95th
+- [x] Check that each has three **different** referential values (5th percentile < median < 95th
       percentile). Features with many zeros can have equal percentiles; then one level never gets full
       belief and some rules get almost no data. If that happens, take the next feature and say why.
-- [ ] Write one sentence per feature: what it means (lab section 4) and why it separates phishing from
+- [x] Write one sentence per feature: what it means (lab section 4) and why it separates phishing from
       legitimate URLs.
 
 **Done when:** `F1`, `F2` are fixed with a reason, and Kirill confirmed the same `shap_top` at sync 2.
@@ -578,9 +578,9 @@ feature such as `google_index` cannot have three levels.
 rules by how well they match, and combine them with Evidential Reasoning. When rules disagree, part of
 the belief becomes Unknown.
 
-- [ ] `transform_to_belief`, `calculate_activation_weights`, `combine_two`, `er_aggregation`,
+- [x] `transform_to_belief`, `calculate_activation_weights`, `combine_two`, `er_aggregation`,
       `brbes_inference` as in the PDF (not the `.txt`, see the note at the top).
-- [ ] Quick sanity checks: `transform_to_belief(level_value)` gives full belief in that level; a value
+- [x] Quick sanity checks: `transform_to_belief(level_value)` gives full belief in that level; a value
       halfway between two levels gives 0.5 / 0.5; the 9 activation weights sum to 1.
 - [ ] Optional X5: compare the output for a few URLs with Lab 3's `src/brbes.py` (same rules, complete
       input); both should give the same beliefs.
@@ -593,13 +593,13 @@ the belief becomes Unknown.
 beliefs come from the share of phishing URLs that activate it. The grading checks "BRB reference values
 from the training data only".
 
-- [ ] `refs1`, `refs2` from `X_train` (5th percentile, median, 95th percentile). Never from test data.
-- [ ] Build the 9 rules and print them with their support; save `results/tables/D3_rules.csv` (rule,
+- [x] `refs1`, `refs2` from `X_train` (5th percentile, median, 95th percentile). Never from test data.
+- [x] Build the 9 rules and print them with their support; save `results/tables/D3_rules.csv` (rule,
       F1 level, F2 level, belief Low/Medium/High, support). This table goes into the report.
-- [ ] Look at the support column: a rule with (almost) no data gets share 0 and therefore claims
+- [x] Look at the support column: a rule with (almost) no data gets share 0 and therefore claims
       "Low risk" without evidence. If this happens, say so in the report (or, as an option, give that
       rule no belief so that it adds only Unknown).
-- [ ] Answer "do the rules make sense?". Then act as the expert: change one rule by hand (e.g.
+- [x] Answer "do the rules make sense?". Then act as the expert: change one rule by hand (e.g.
       `rules[3] = [0.0, 0.2, 0.8]`), rerun D4 and D5, write down what changed, and rerun D3 to restore
       the rules. In the final notebook, do the hand-edit on a **copy** of the rules, so that
       running top to bottom keeps the data-driven rules for D4 and D5.
@@ -613,10 +613,10 @@ sentences.
 scored with the same `report()` as every other model. A small tree and a forest on the **same** two
 features make the comparison fair.
 
-- [ ] `brb_predict_proba`, `BRBDetector`, `tree2` (depth 2), `rf2`, as in the lab.
-- [ ] Scores for the BRB, `tree2`, `rf2` and `rf` (all 87 features) on the test set; save
+- [x] `brb_predict_proba`, `BRBDetector`, `tree2` (depth 2), `rf2`, as in the lab.
+- [x] Scores for the BRB, `tree2`, `rf2` and `rf` (all 87 features) on the test set; save
       `results/tables/D4_brb_scores.csv`.
-- [ ] Answer: the BRB and the small tree have almost the same macro-F1; looking at recall and FAR,
+- [x] Answer: the BRB and the small tree have almost the same macro-F1; looking at recall and FAR,
       which would a security team prefer, and why?
 
 **Done when:** the 4-row table and the answer exist.
@@ -627,11 +627,11 @@ features make the comparison fair.
 it with LIME and SHAP checks whether the post-hoc tools agree with the rules we know are there, which
 is the last graded "results and analysis" item.
 
-- [ ] For `i_wrong`: the rules that fire with their weights, the Low/Medium/High beliefs, Unknown and the
+- [x] For `i_wrong`: the rules that fire with their weights, the Low/Medium/High beliefs, Unknown and the
       true label.
-- [ ] LIME on `brb_predict_proba` for the High-risk output (`labels=(2,)`), with its fit score.
-- [ ] SHAP `KernelExplainer` with 100 background rows, waterfall for High risk, saved.
-- [ ] Answer: was the BRB fooled too, and which rule is most to blame? Do LIME and SHAP agree on which
+- [x] LIME on `brb_predict_proba` for the High-risk output (`labels=(2,)`), with its fit score.
+- [x] SHAP `KernelExplainer` with 100 background rows, waterfall for High risk, saved.
+- [x] Answer: was the BRB fooled too, and which rule is most to blame? Do LIME and SHAP agree on which
       input pushes High risk most, and does that match the rules that fire?
 
 **Done when:** the rule trace, the LIME weights, the SHAP waterfall and the answers are ready.

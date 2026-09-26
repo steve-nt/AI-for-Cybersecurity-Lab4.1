@@ -1,0 +1,5 @@
+model,macro_F1,recall,ROC_AUC,FAR
+"BRB, 2 features",0.802,0.773,0.914,0.169
+"tree (depth 2), 2 features",0.803,0.948,0.885,0.334
+"forest, 2 features",0.847,0.842,0.927,0.148
+"forest, all 87 features",0.965,0.968,0.994,0.038

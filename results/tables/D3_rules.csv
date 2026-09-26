@@ -1,0 +1,10 @@
+rule,page_rank,nb_hyperlinks,belief_Low,belief_Medium,belief_High,phishing_share,support
+R1,Low,Low,0.0,0.114,0.886,0.943,1106.1
+R2,Low,Medium,0.0,0.318,0.682,0.841,960.2
+R3,Low,High,0.0,0.752,0.248,0.624,140.7
+R4,Medium,Low,0.0,0.63,0.37,0.685,854.2
+R5,Medium,Medium,0.426,0.574,0.0,0.287,1649.9
+R6,Medium,High,0.837,0.163,0.0,0.081,627.1
+R7,High,Low,0.0,0.768,0.232,0.616,344.2
+R8,High,Medium,0.582,0.418,0.0,0.209,772.6
+R9,High,High,0.963,0.037,0.0,0.019,402.9
