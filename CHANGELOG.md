@@ -417,3 +417,66 @@ X4: identical top-10 ranking on validation and test. X5: normalised beliefs and 
 less than 1e-15; mean Unknown 0.234 (recursive) against 0.000 (analytical). Before adding X5, a scratch
 check confirmed that the notebook's copy equals the real Lab 3 module exactly. Part notebooks take 4.6,
 4.8 and 3.1 minutes; the hand-in notebook about 10 minutes.
+
+## 2026-09-27 12:45 EEST: Report, README and final check
+
+**What**
+- `report/Lab4_1_Report.md`: the report source, with the lab's five headings, 6 tables, a two-panel
+  Figure 1 (SHAP beeswarm, LIME for the forest's mistake) and a code appendix. Every result number is a
+  `{{file:row:column}}` token or a `[[table ...]]` directive filled from `results/tables/*.csv` at build
+  time. The few numbers typed by hand (hand-edit scores, LIME fit 0.74, Unknown 0.315, 79 of 87 weights,
+  referential values, top-10 overlaps) were checked against the hand-in notebook's output. The
+  "who did what" section is left as a clearly marked placeholder for the group; the AI-use statement says
+  what the assistant was used for.
+- `report/build_report.py`: builds `report/Lab4_1_Report.pdf` (fpdf2 + markdown): fills the tokens,
+  renders tables with fitted column widths, places figures side by side, renders the code of steps A8
+  and D3 from the hand-in notebook as appendix images (`report/figures/code_A8.png`, `code_D3.png`), and
+  prints the page count.
+- `report/fonts/`: Liberation Sans and DejaVu Sans Mono with their licences, so that the PDF builds the
+  same on every machine.
+- `report/Lab4_1_Report.pdf`: 5 pages, 3 of main text and 2 of appendix.
+- `README.md`: created (dataset, setup, Colab, how to run, code organisation, headline results,
+  reproducibility, credits).
+- `requirements.txt`: added `fpdf2==2.8.8` and `markdown==3.11` for the report build.
+- `parts/10_supervised_forest.ipynb` (extra LIME-stability check): `max(sets, key=sets.count)` instead
+  of `max(set(sets), ...)`. With all 5 LIME runs different, the "most common" set was picked by set
+  iteration order, which depends on Python's string-hash randomisation, so it changed between processes.
+- `lab4_1_explaining_phishing_detectors.ipynb`, `results/`: re-run and rebuilt.
+- `TASKLIST.md`: ticked the finished report, README and final-check items. Still open: the who-did-what
+  line and the upload to Canvas.
+
+**Why**
+The report, README and final check are what is handed in. Filling numbers from the result files keeps
+the report consistent with the notebook. The report does not mention the task list or internal task
+IDs (report-no-tasklist skill; checked with grep on the source and on the PDF text).
+
+**Verified**
+Final check on a fresh copy of every file that would be committed (no `.venv`, no `PreviousLabs`), with a
+new environment from `requirements.txt`: the hand-in notebook ran top to bottom in 9.5 minutes, the report
+built, and the report text was identical to the original. All result tables were byte-identical except the
+LIME-stability table's "most common" column, which led to the tie-break fix above. After the fix, a part
+run and the hand-in run (separate processes) give identical tables. No absolute paths in the files, no
+`STANDIN` cell in the hand-in notebook, 0 errors.
+
+## 2026-09-27 13:13 EEST: Word version of the report
+
+**What**
+- `report/build_docx.py`: adapted from our Lab 3 script. It now reads `report/Lab4_1_Report.md`, fills
+  the numbers and tables with the same code as the PDF build (`build_report.expand`), skips the Markdown
+  title and author line, handles `[[figures]]` (images side by side), `[[code]]` (the notebook's code
+  rendered as images) and `[[pagebreak]]`, uses 10 pt body text, and sets the title page's assignment
+  title to "Lab 4.1: Explaining Phishing Detectors".
+- `report/title_page_template.docx`: copied from Lab 3 (title page with course, group, authors and the
+  university logo), because `PreviousLabs/` is not in the repository.
+- `report/Lab4_1_Report.docx`: built.
+- `README.md`: mentions the Word version and how to build it.
+
+**Why**
+Requested: the report as a Word document, built by our existing script, so that it says the same as
+the PDF and can be edited in Word.
+
+**Verified**
+All 12 XML parts parse; python-docx opens the file (6 tables, 5 images including the logo, headings 1–5
+and the appendix); every number in the PDF also appears in the Word file; no task-list references. The
+page count in Word was not checked (no Word or LibreOffice here); with US Letter, the template's margins
+and 10 pt text it may differ from the PDF's 3 + 2 pages.

@@ -89,7 +89,7 @@ when a task is done.
 | ID | Task | What it is and why | Needs | Done |
 |---|---|---|---|---|
 | T5 | Report (2–3 pages) | Five headings set by the lab, captioned figures and tables, code screenshot, who-did-what line, AI-use statement | all steps | ☐ |
-| T6 | README | Libraries, dataset, how to run (the lab asks for it) | T2, T4 | ☐ |
+| T6 | README | Libraries, dataset, how to run (the lab asks for it) | T2, T4 | ☑ |
 | T7 | Final check and submission | Fresh clone, run the assembled notebook top to bottom, compare its numbers with the report, upload to Canvas | T5, T6 | ☐ |
 
 ---
@@ -545,7 +545,7 @@ to run is hard to trust in an incident report. SHAP TreeExplainer is exact, so i
 
 - [x] LIME on `i_phish` with seeds 0–4, as in the lab; count how often the top 3 is the same; save
       `results/tables/C2_lime_stability.csv`.
-- [ ] Write both numbers in the report: LIME k of 5, SHAP 5 of 5.
+- [x] Write both numbers in the report: LIME k of 5, SHAP 5 of 5.
 - [x] Optional X2: repeat on `i_legit` and `i_wrong`, and run the SHAP explainer twice on the same URL
       and check that the values are equal, so that "5 of 5" is measured, not assumed.
 
@@ -651,38 +651,38 @@ The lab fixes the headings.
 | 4 Discussion | S: unlabelled data, same clues, BRB vs LIME/SHAP. K: which model to deploy, the mistake, the attacker view | Answer every "Check yourself" question (section 4 of this file) |
 | 5 Who did what | both | One or two lines |
 
-- [ ] Three pages is tight. Budget: 3 tables (A10; B4 top 5 instead of top 10; the BRB rules together with
+- [x] Three pages is tight. Budget: 3 tables (A10; B4 top 5 instead of top 10; the BRB rules together with
       the D4 scores) and 2 figures (SHAP beeswarm, one LIME chart). Merge C1 and C2 into one sentence
       each, or one small table.
-- [ ] Every figure and table has a caption and is referred to in the text.
-- [ ] Attacker view (K): for each top feature, can the attacker control it? URL-text features
+- [x] Every figure and table has a caption and is referred to in the text.
+- [x] Attacker view (K): for each top feature, can the attacker control it? URL-text features
       (`phish_hints`, `nb_hyphens`, `length_url`) are easy to fake; external ones (`domain_age`,
       `page_rank`, `google_index`) are hard to fake quickly. Link this to C1.
-- [ ] A screenshot of our code (the grading asks for it), e.g. as an appendix.
+- [x] A screenshot of our code (the grading asks for it), e.g. as an appendix.
 - [ ] Who-did-what line, for example: "Kirill: setup, tree, logistic regression and forest, their
       SHAP/LIME explanations, ablation and LIME stability, README. Stefanos: repository, lower lines,
       semi- and self-supervised models, model comparison, BRB, notebook assembly."
-- [ ] Honesty: say that an AI assistant was used and for what (at least for planning the work). Cite
+- [x] Honesty: say that an AI assistant was used and for what (at least for planning the work). Cite
       the dataset (Hannousse & Yahiouche, 2021), shap, lime, scikit-learn and the lab's example code.
-- [ ] The report never mentions this task list: no file name, no task IDs (T1–T7, X1–X5), no
+- [x] The report never mentions this task list: no file name, no task IDs (T1–T7, X1–X5), no
       checkboxes. The lab's own step names (A1–D5) are fine.
-- [ ] Final assembly and PDF export: Kirill.
+- [x] Final assembly and PDF export: Kirill.
 
 **Done when:** the PDF is 2–3 pages plus the appendix, and every number in it matches the assembled
 notebook.
 
 #### T6 · README (Kirill)
 
-- [ ] Libraries with versions and the Python version, `random_state=42`, where the dataset comes from
+- [x] Libraries with versions and the Python version, `random_state=42`, where the dataset comes from
       (with citation) and where to put it, how to run (local and Colab), how the part notebooks and
       `tools/assemble.py` produce the hand-in notebook, and where figures and tables are written.
 
 #### T7 · Final check and submission (both)
 
-- [ ] Each of us makes a fresh clone, creates the environment from `requirements.txt` and runs the
+- [x] Each of us makes a fresh clone, creates the environment from `requirements.txt` and runs the
       assembled notebook top to bottom without errors.
-- [ ] The numbers in the report match the notebook output.
-- [ ] No absolute paths in the code; no `STANDIN` cell in the assembled notebook.
+- [x] The numbers in the report match the notebook output.
+- [x] No absolute paths in the code; no `STANDIN` cell in the assembled notebook.
 - [ ] Upload to Canvas: the report PDF and the code (repository link or zip).
 
 ---
