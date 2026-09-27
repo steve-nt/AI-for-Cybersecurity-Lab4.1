@@ -1,0 +1,11 @@
+rank,SHAP on test (D1),SHAP on validation
+1,google_index,google_index
+2,page_rank,page_rank
+3,nb_hyperlinks,nb_hyperlinks
+4,web_traffic,web_traffic
+5,nb_www,nb_www
+6,phish_hints,phish_hints
+7,domain_age,domain_age
+8,safe_anchor,safe_anchor
+9,ratio_extHyperlinks,ratio_extHyperlinks
+10,ratio_extRedirection,ratio_extRedirection

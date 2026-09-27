@@ -1,0 +1,5 @@
+model,cutoff,guesses_added,guess_accuracy,macro_F1,recall,ROC_AUC,FAR
+"forest (5%), no pseudo-labels",,0,,0.938,0.946,0.984,0.069
+semi-supervised,0.85,5120,0.9814,0.935,0.945,0.983,0.075
+semi-supervised,0.9,4265,0.9885,0.931,0.946,0.982,0.083
+semi-supervised,0.95,2780,0.9921,0.931,0.948,0.983,0.085

@@ -78,11 +78,11 @@ when a task is done.
 
 | ID | Task | What it is and why | Needs | Done |
 |---|---|---|---|---|
-| X1 | CUTOFF sweep 0.85 / 0.90 / 0.95 | The lab invites it. Shows how the number and quality of pseudo-labels trade off | A8 | ☐ |
-| X2 | LIME stability on all three URLs, and SHAP run twice | Makes the C2 claim ("LIME unstable, SHAP stable") rest on more than one URL | C2 | ☐ |
-| X3 | Second BRB on a hand-picked pair (e.g. `page_rank` + `nb_hyperlinks`) | D1 allows it. Is a feature pair that a security person would choose better or worse than the SHAP pair? | D4 | ☐ |
-| X4 | Feature choice checked on validation data | D1 ranks features on test rows. Showing that validation rows give the same pair removes any test-leakage doubt | D1 | ☐ |
-| X5 | Cross-check the ER code with our Lab 3 `brbes.py` | Two independent implementations that agree give confidence in D2 | D3 | ☐ |
+| X1 | CUTOFF sweep 0.85 / 0.90 / 0.95 | The lab invites it. Shows how the number and quality of pseudo-labels trade off | A8 | ☑ |
+| X2 | LIME stability on all three URLs, and SHAP run twice | Makes the C2 claim ("LIME unstable, SHAP stable") rest on more than one URL | C2 | ☑ |
+| X3 | Second BRB on a hand-picked pair (`domain_age` + `length_url`; D1's pair is `page_rank` + `nb_hyperlinks`) | D1 allows it. Is a feature pair that a security person would choose better or worse than the SHAP pair? | D4 | ☑ |
+| X4 | Feature choice checked on validation data | D1 ranks features on test rows. Showing that validation rows give the same pair removes any test-leakage doubt | D1 | ☑ |
+| X5 | Cross-check the ER code with our Lab 3 `brbes.py` | Two independent implementations that agree give confidence in D2 | D3 | ☑ |
 
 ### Report and hand-in
 
@@ -546,7 +546,7 @@ to run is hard to trust in an incident report. SHAP TreeExplainer is exact, so i
 - [x] LIME on `i_phish` with seeds 0–4, as in the lab; count how often the top 3 is the same; save
       `results/tables/C2_lime_stability.csv`.
 - [ ] Write both numbers in the report: LIME k of 5, SHAP 5 of 5.
-- [ ] Optional X2: repeat on `i_legit` and `i_wrong`, and run the SHAP explainer twice on the same URL
+- [x] Optional X2: repeat on `i_legit` and `i_wrong`, and run the SHAP explainer twice on the same URL
       and check that the values are equal, so that "5 of 5" is measured, not assumed.
 
 **Done when:** the stability count is saved.
@@ -582,7 +582,7 @@ the belief becomes Unknown.
       `brbes_inference` as in the PDF (not the `.txt`, see the note at the top).
 - [x] Quick sanity checks: `transform_to_belief(level_value)` gives full belief in that level; a value
       halfway between two levels gives 0.5 / 0.5; the 9 activation weights sum to 1.
-- [ ] Optional X5: compare the output for a few URLs with Lab 3's `src/brbes.py` (same rules, complete
+- [x] Optional X5: compare the output for a few URLs with Lab 3's `src/brbes.py` (same rules, complete
       input); both should give the same beliefs.
 
 **Done when:** the functions run and the sanity checks pass.

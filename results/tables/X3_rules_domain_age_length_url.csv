@@ -1,0 +1,10 @@
+rule,domain_age,length_url,belief_Low,belief_Medium,belief_High,phishing_share,support
+R1,Low,Low,0.078,0.922,0.0,0.461,790.3
+R2,Low,Medium,0.0,0.53,0.47,0.735,1077.2
+R3,Low,High,0.0,0.23,0.77,0.885,405.3
+R4,Medium,Low,0.417,0.583,0.0,0.292,683.8
+R5,Medium,Medium,0.005,0.995,0.0,0.497,1417.5
+R6,Medium,High,0.0,0.49,0.51,0.755,564.9
+R7,High,Low,0.504,0.496,0.0,0.248,445.8
+R8,High,Medium,0.453,0.547,0.0,0.273,1124.3
+R9,High,High,0.053,0.947,0.0,0.474,348.9

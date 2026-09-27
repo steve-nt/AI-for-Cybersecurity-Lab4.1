@@ -1,0 +1,5 @@
+pair,chosen,model,macro_F1,recall,ROC_AUC,FAR,score_on_mistake_url
+page_rank + nb_hyperlinks,SHAP top 2 (step D1),BRB,0.802,0.773,0.914,0.169,0.735
+page_rank + nb_hyperlinks,SHAP top 2 (step D1),tree (depth 2),0.803,0.948,0.885,0.334,0.563
+domain_age + length_url,chosen by hand,BRB,0.717,0.627,0.788,0.188,0.366
+domain_age + length_url,chosen by hand,tree (depth 2),0.736,0.652,0.748,0.176,0.3

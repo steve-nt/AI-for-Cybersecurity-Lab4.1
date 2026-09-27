@@ -379,3 +379,41 @@ the two features 0.847 / 0.842 / 0.148; forest on all 87 0.965 / 0.968 / 0.038. 
 same URL as the forest (phishing score 0.735, Unknown 0.315). SHAP says the few links push High risk up
 most; LIME (fit 0.74) ranks page_rank slightly first. The hand-edit of R4 raises recall to 0.818 and FAR
 to 0.183. Every results table rewritten by the full rebuild is identical to the part-notebook runs.
+
+## 2026-09-27 03:15 EEST: Optional extras X1–X5
+
+**What**
+- `parts/20_label_scarce.ipynb`, X1: pseudo-labelling repeated with CUTOFF 0.85 / 0.90 / 0.95, compared on
+  validation with the 5% lower line (assert: 0.90 reproduces step A8); saved to
+  `results/tables/X1_cutoff_sweep.csv`.
+- `parts/10_supervised_forest.ipynb`, X2: LIME with seeds 0–4 on all three B5 URLs, plus SHAP 5 times on
+  each; saved to `results/tables/X2_lime_stability_three_urls.csv`.
+- `parts/30_brb.ipynb`:
+  - X3: a second BRB on the hand-picked pair `domain_age` + `length_url` (the lab's example `nb_www` has
+    only two distinct referential values), built and scored like D3/D4 inside a helper that restores the
+    step-D rules; saved to `results/tables/X3_brb_pairs.csv` and `X3_rules_domain_age_length_url.csv`.
+  - X4: SHAP ranking of the forest on 500 validation URLs against the test ranking used in D1; saved to
+    `results/tables/X4_shap_ranking_test_vs_validation.csv`.
+  - X5: analytical ER copied from our Lab 3 `src/brbes.py` (`er_aggregate`, credited in the cell, because
+    `PreviousLabs/` is not in the repository) and compared with the lab's recursive ER on every test URL;
+    saved to `results/tables/X5_er_crosscheck.csv`.
+  - D5 answer corrected: the large Unknown comes from the rule weights being split over four partly-active
+    rules, not from the rules disagreeing (see X5).
+- "What we see" cells for X1–X5.
+- `lab4_1_explaining_phishing_detectors.ipynb`: rebuilt with `--strict` and executed (82 cells, no errors).
+- `results/figures/B2_shap_forest_beeswarm.png`: regenerated (drawing order only).
+- `TASKLIST.md`: ticked X1–X5 and the optional items in C2 and D2; X3's description now names the pair used.
+
+**Why**
+The extras test the robustness of the main results: whether the cutoff changes the A10 verdict, whether
+LIME's stability holds beyond the easiest URL, whether intuition beats SHAP for choosing BRB features,
+whether choosing features on test rows leaked, and whether the ER code is correct.
+
+**Verified**
+X1: no cutoff beats the forest on 5% labels (validation macro-F1 0.935 / 0.931 / 0.931 against 0.938).
+X2: LIME same top 3 in 5, 1 and 3 of 5 runs (phishing / legitimate / wrong URL); SHAP 5 of 5 on all three.
+X3: hand-picked BRB macro-F1 0.717 against 0.802, but phishing score 0.366 on the forest's mistake.
+X4: identical top-10 ranking on validation and test. X5: normalised beliefs and phishing scores differ by
+less than 1e-15; mean Unknown 0.234 (recursive) against 0.000 (analytical). Before adding X5, a scratch
+check confirmed that the notebook's copy equals the real Lab 3 module exactly. Part notebooks take 4.6,
+4.8 and 3.1 minutes; the hand-in notebook about 10 minutes.
