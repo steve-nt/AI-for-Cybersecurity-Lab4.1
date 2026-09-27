@@ -480,3 +480,17 @@ All 12 XML parts parse; python-docx opens the file (6 tables, 5 images including
 and the appendix); every number in the PDF also appears in the Word file; no task-list references. The
 page count in Word was not checked (no Word or LibreOffice here); with US Letter, the template's margins
 and 10 pt text it may differ from the PDF's 3 + 2 pages.
+
+## 2026-09-27 13:33 EEST: Who-did-what line in the report
+
+**What**
+- `report/Lab4_1_Report.md`: the section 5 placeholder is replaced by: "Kirill Silchenko and Stefanos
+  Ntentopoulos each worked through the complete lab (Parts A–D, the extra checks and the report), compared
+  the results, and chose this version to hand in."
+- `report/Lab4_1_Report.pdf`, `report/Lab4_1_Report.docx`: rebuilt.
+
+**Why**
+Requested; worded as the group described its work (both did the whole lab and picked one version).
+
+**Verified**
+PDF still 3 + 2 pages; no task-list references and no placeholder left in the PDF text.

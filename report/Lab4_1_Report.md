@@ -144,7 +144,8 @@ rules disagree".
 
 ## 5. Who did what
 
-**[To be completed by the group: one or two lines that say who did which part of the work.]**
+Kirill Silchenko and Stefanos Ntentopoulos each worked through the complete lab (Parts A–D, the extra
+checks and the report), compared the results, and chose this version to hand in.
 
 **Use of AI and sources.** An AI assistant (Claude, by Anthropic, used through Claude Code) was used to
 plan the work, write and run the notebook code, and draft this report. We used the lab's example code,
