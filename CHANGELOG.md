@@ -494,3 +494,22 @@ Requested; worded as the group described its work (both did the whole lab and pi
 
 **Verified**
 PDF still 3 + 2 pages; no task-list references and no placeholder left in the PDF text.
+
+## 2026-09-27 14:12 EEST: Plain-language report and submission list
+
+**What**
+- `Report-Plain-Lang.md`: the report in plain language: the question, the data and its clues, the three
+  ways of teaching a detector, results as "caught / wrongly flagged per 100 URLs", glass and black boxes,
+  the blog mistake, the tests without live lookups and of LIME's stability, the BRB rules, the extra checks,
+  the attacker view, what we would deploy, a glossary and where the files are. No task-list references
+  (checked with grep).
+- `Files-For-Submission.md`: what to upload (report PDF, code zip), which files the zip needs and why,
+  optional files, what not to submit, a pre-zip checklist, and the `git archive` / `zip -d` commands.
+
+**Why**
+Requested: an easy-to-understand version of the report and a submission list, as for Lab 3.
+
+**Verified**
+Every number in the plain-language report was checked against `results/tables/*.csv` and the notebook
+output. The zip commands were tested on a temporary copy: 6.3 MB, no `.venv`, no `PreviousLabs`, no
+assignment files.
