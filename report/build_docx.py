@@ -156,9 +156,7 @@ def figure_paths(line):
     if m := re.fullmatch(r"\[\[figures (.+?) \| (.+)\]\]", line):
         return [ROOT / p.strip() for p in m.group(1).split(";")], m.group(2)
     if m := re.fullmatch(r"\[\[code (.+?) \| (.+)\]\]", line):
-        build_report.CODE_IMAGES.mkdir(exist_ok=True)
-        return [build_report.code_image(s.strip(), build_report.CODE_IMAGES / f"code_{s.strip()}.png")
-                for s in m.group(1).split(";")], m.group(2)
+        return build_report.code_images(m.group(1)), m.group(2)
     return None, None
 
 

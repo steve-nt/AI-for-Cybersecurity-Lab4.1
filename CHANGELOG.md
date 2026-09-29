@@ -513,3 +513,33 @@ Requested: an easy-to-understand version of the report and a submission list, as
 Every number in the plain-language report was checked against `results/tables/*.csv` and the notebook
 output. The zip commands were tested on a temporary copy: 6.3 MB, no `.venv`, no `PreviousLabs`, no
 assignment files.
+
+## 2026-09-29 19:32 EEST: Fixes for the four review findings (review.md)
+
+**What**
+- Finding 1, top-10 table truncated: `report/Lab4_1_Report.md` Table 3 now shows all ten rows
+  (`rows=10`, caption "ten most important"). Table 1's wording was shortened so that Table 3 still fits on
+  page 1.
+- Finding 2, BRB features chosen on test data: `parts/30_brb.ipynb` step D1 now ranks the features with
+  SHAP on 500 validation URLs (`shap_top_val`) and chooses F1, F2 from that ranking; the test set is only
+  used for scoring. The extra check was turned around: it now confirms that the test ranking of step B2
+  would choose the same pair (`results/tables/X4_shap_ranking_test_vs_validation.csv`, columns swapped).
+  Report and `Report-Plain-Lang.md` texts updated accordingly.
+- Finding 3, `random_state=42` missing: added to all four `LogisticRegression` calls
+  (`parts/10_supervised_forest.ipynb` A5; `parts/20_label_scarce.ipynb` A7, A9 and the stand-in).
+- Finding 4, page count: the code appendix is now one page. `report/build_report.py` takes a line range in
+  `[[code A8 1-27 | ...]]` and draws every code image at the same fixed width; the appendix shows the key
+  excerpts of steps A8 and D3, each ending with a note saying which lines are not shown.
+  `report/build_docx.py` uses the same function. The PDF is now 4 pages (3 + 1).
+- All part notebooks re-run, hand-in notebook rebuilt with `--strict`, PDF and Word rebuilt;
+  `Files-For-Submission.md` updated (4 pages).
+
+**Why**
+The review (`review.md`) found a truncated required table, test data used to choose the BRB inputs, a
+seed claim that was not literally true, and a risk with the 2–3-page limit.
+
+**Verified**
+Hand-in notebook: 0 errors, no unseeded logistic regressions. Every result table is byte-identical to
+before the fixes except the swapped columns of the ranking check, so the seeds changed no number and the
+validation ranking chooses the same features (`page_rank`, `nb_hyperlinks`). PDF text has no
+unresolved tokens and no task-list references; the Word file has the full Table 3 and 5 images.

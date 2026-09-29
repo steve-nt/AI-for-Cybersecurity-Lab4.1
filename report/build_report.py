@@ -7,7 +7,8 @@ CSV files the notebook writes to results/tables/, so the report always matches t
     {{D3_rules:#1:support:.0f}}                     optional Python format spec
     [[table D4_brb_scores | model, macro_F1, FAR | Model, Macro-F1, FAR | rows=4]]
     [[figures results/figures/a.png ; results/figures/b.png | Figure 1. Caption]]
-    [[code A8 ; D3 | Figure 3. Caption]]            code cells of these lab steps, from the notebook
+    [[code A8 1-27 | Figure 2. Caption]]            code cell(s) of a lab step, from the notebook;
+                                                    an optional line range shows an excerpt
     [[pagebreak]]
 
 Everything else is ordinary Markdown (headings, paragraphs, lists, pipe tables, **bold**, *italic*,
@@ -119,19 +120,26 @@ def expand(text):
 # ---------------------------------------------------------------------------
 # 2. Code "screenshots": code cells of the hand-in notebook rendered as images
 # ---------------------------------------------------------------------------
-def code_image(step, path, font_px=26, pad=24, max_chars=100):
+def code_image(step, path, lines=None, font_px=26, pad=24, max_chars=100):
+    """Render the code of one lab step (or lines first-last of it) as a PNG, like a screenshot."""
     nb = nbformat.read(NOTEBOOK, as_version=4)
     cells = [c.source for c in nb.cells
              if c.cell_type == "code" and c.source.startswith(f"# STEP {step}\n")]
     if not cells:
         sys.exit(f"ERROR: no code cell for step {step} in {NOTEBOOK.name}")
     source = "\n\n".join(cells)
+    if lines:
+        first, last = lines
+        all_lines = source.splitlines()
+        source = "\n".join(all_lines[first - 1:last])
+        if last < len(all_lines):
+            source += f"\n# ... lines {last + 1}-{len(all_lines)} of this cell not shown"
     font = ImageFont.truetype(str(FONTS / "DejaVuSansMono.ttf"), font_px)
     style = get_style_by_name("default")
     char_w = font.getbbox("M")[2]
     line_h = int(font_px * 1.35)
     lines = source.splitlines()
-    width = pad * 2 + char_w * min(max(len(line) for line in lines), max_chars)
+    width = pad * 2 + char_w * max_chars              # fixed width: every code image has the same scale
     height = pad * 2 + line_h * len(lines)
     image = Image.new("RGB", (width, height), (248, 248, 248))
     draw = ImageDraw.Draw(image)
@@ -146,6 +154,17 @@ def code_image(step, path, font_px=26, pad=24, max_chars=100):
                 x += char_w * len(piece)
     image.save(path)
     return path
+
+
+def code_images(spec):
+    """'A8 1-27 ; D3' -> PNG paths; each part is a lab step and an optional line range."""
+    CODE_IMAGES.mkdir(exist_ok=True)
+    paths = []
+    for part in spec.split(";"):
+        step, *rest = part.split()
+        lines = tuple(int(n) for n in rest[0].split("-")) if rest else None
+        paths.append(code_image(step, CODE_IMAGES / f"code_{step}.png", lines))
+    return paths
 
 
 # ---------------------------------------------------------------------------
@@ -283,8 +302,7 @@ def main():
             render_figures(pdf, m.group(1).split(";"), m.group(2))
         elif m := re.fullmatch(r"\[\[code (.+?) \| (.+)\]\]", line.strip()):
             flush()
-            steps = [s.strip() for s in m.group(1).split(";")]
-            images = [str(code_image(s, CODE_IMAGES / f"code_{s}.png").relative_to(ROOT)) for s in steps]
+            images = [str(p.relative_to(ROOT)) for p in code_images(m.group(1))]
             render_figures(pdf, images, m.group(2), height_limit=250)
         else:
             pending.append(line)

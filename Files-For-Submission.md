@@ -11,7 +11,7 @@ must stay out.
 
 | File | What to do |
 |---|---|
-| `report/Lab4_1_Report.pdf` | **Upload this.** 3 pages of report + 2 pages of code appendix, built from the Markdown source |
+| `report/Lab4_1_Report.pdf` | **Upload this.** 4 pages: 3 pages of report + a 1-page code appendix, built from the Markdown source |
 | `report/Lab4_1_Report.docx` | The same report in Word, with our title page. Upload it only if a Word file is wanted; it also ships in the code zip |
 
 If you edit the text, change `report/Lab4_1_Report.md` and rebuild both:

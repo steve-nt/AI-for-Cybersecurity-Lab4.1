@@ -133,7 +133,7 @@ fit score is a warning sign.
 ## 8. Turning the explanation into rules
 
 A **Belief Rule-Based expert system (BRB)** decides with human-readable rules, like an expert would.
-We took the two most important clues from SHAP that have more than two values (`google_index` is only
+We took the two most important clues from SHAP (ranked on the settings group, not the test group) that have more than two values (`google_index` is only
 0/1): **`page_rank`** and **`nb_hyperlinks`**. Each gets three levels, Low / Medium / High, taken from the
 training data (`page_rank` 0 / 3 / 8, links 0 / 33 / 325). That gives 3 × 3 = 9 rules, for example:
 
@@ -166,8 +166,9 @@ something different (how fast the risk changes, not what pushed it).
 
 ## 9. Extra checks we did
 
-- **Did we cheat by choosing the two clues on the test URLs?** No: choosing on the settings group gives
-  the same top 10 clues in the same order.
+- **Did the test URLs influence the choice of the two clues?** No. We rank the clues on the settings
+  group (validation), so the test group is only used to grade the BRB. As a check, ranking on the test
+  group gives the same top 10 clues in the same order.
 - **Is the rule-combining code right?** We compared it with a second, independent implementation (from our
   Lab 3). The phishing scores are identical. One nuance: the lab's version reports an "Unknown" part
   (0.315 for the blog), the other reports none. In this lab, "Unknown" means "several rules fire partly",

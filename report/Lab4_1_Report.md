@@ -29,10 +29,10 @@ models and how each is explained.
 
 | Way of learning | Models | Explained with |
 |---|---|---|
-| Supervised, all labels | decision tree (depth 3 or 4, chosen on validation), logistic regression, Random Forest (300 trees) | tree rules, weights, SHAP TreeExplainer, LIME |
-| Semi-supervised, 5% | forest on the 5% only (lower line); forest with 3 rounds of pseudo-labels (CUTOFF 0.9) | SHAP TreeExplainer |
-| Self-supervised, 5% | logistic regression on the 5% (lower line); network that fills in 20% hidden values (32 hidden units) + logistic regression on the 5% | SHAP permutation explainer (seed 42) |
-| Rules | BRB on the top two SHAP features, 3 × 3 = 9 rules from training data, Evidential Reasoning | the rules; LIME and SHAP KernelExplainer |
+| Supervised, all labels | tree (depth 3/4, chosen on validation), logistic regression, forest (300 trees) | rules, weights, SHAP, LIME |
+| Semi-supervised, 5% | forest on the 5% (lower line); forest + 3 rounds of pseudo-labels (CUTOFF 0.9) | SHAP TreeExplainer |
+| Self-supervised, 5% | logreg on the 5% (lower line); fill-in network (32 units) + logreg on the 5% | SHAP permutation (seed 42) |
+| Rules | BRB on the top two SHAP features, 9 rules from training data | the rules, LIME, SHAP |
 
 ## 3. Results
 
@@ -45,9 +45,9 @@ to it. The pseudo-labels were mostly right ({{X1_cutoff_sweep:#3:guess_accuracy:
 {{X1_cutoff_sweep:#3:guesses_added}}), but less so each round
 ({{A8_pseudo_label_rounds:#1:accuracy:.1%}} → {{A8_pseudo_label_rounds:#3:accuracy:.1%}}).
 
-*Table 3. The five most important features per model: tree importance, absolute logistic-regression weight, and mean |SHAP value| for the three black boxes.*
+*Table 3. The ten most important features per model: tree importance, absolute logistic-regression weight, and mean |SHAP value| for the three black boxes.*
 
-[[table B4_top10_lists | rank, tree, logreg, SHAP forest, SHAP semi, SHAP self | #, Tree, Logistic regression, SHAP forest (100%), SHAP semi-supervised, SHAP self-supervised | rows=5]]
+[[table B4_top10_lists | rank, tree, logreg, SHAP forest, SHAP semi, SHAP self | #, Tree, Logistic regression, SHAP forest (100%), SHAP semi-supervised, SHAP self-supervised | rows=10]]
 
 [[figures results/figures/B2_shap_forest_beeswarm.png ; results/figures/B6_lime_wrong.png | Figure 1. Left: SHAP for the supervised forest on 500 test URLs (one dot per URL; red = high value, right = toward phishing). Right: LIME for the forest's most confident mistake, `graphicsfairy.blogspot.ru` (legitimate, P(phishing) = {{B5_three_urls:wrong:P_phishing}}); LIME fit score {{B6_shap_vs_lime_top3:wrong:LIME_fit_score}}.]]
 
@@ -61,8 +61,8 @@ to it. The pseudo-labels were mostly right ({{X1_cutoff_sweep:#3:guess_accuracy:
 
 **BRB.** The top SHAP feature, `google_index`, is 0/1 and cannot have Low/Medium/High levels, so the
 antecedents are the next two: **`page_rank`** (how well-linked the site is) and **`nb_hyperlinks`** (how
-many links the page has). Ranking the features on 500 validation URLs instead of test URLs gives the same
-top 10 in the same order, so this choice does not leak test information. Referential values are the 5th
+many links the page has). To keep the test set for scoring only, this ranking is computed with SHAP on
+500 validation URLs; on the test URLs it is the same top 10 in the same order. Referential values are the 5th
 percentile, median and 95th percentile of the training data (`page_rank` 0 / 3 / 8, `nb_hyperlinks`
 0 / 33 / 325). Each rule's beliefs come from the share of phishing among the training URLs that activate
 it; the smallest rule is backed by {{D3_rules:R3:support:.0f}} URLs (Table 5). Table 6 compares the BRB with
@@ -88,7 +88,7 @@ slightly above its lower line ({{A10_test_scores:self-supervised:macro_F1}} vs
 As the lab warned, a forest is already strong with 342 labels.
 
 **Do the models look at the same clues? Mostly.** `google_index`, `page_rank` and `nb_www` are in all
-five top-10 lists (Table 3 shows the top 5), and `nb_hyperlinks` and `phish_hints` in four. The tree's first question is "has Google
+five top-10 lists (Table 3), and `nb_hyperlinks` and `phish_hints` in four. The tree's first question is "has Google
 indexed this page?", and in the beeswarm the red dots of `google_index` (1 = *not* indexed) are on the
 right: not being indexed is the forest's strongest reason to say phishing. The two forests share 8 of
 their top 10 features, which is expected because the pseudo-labels came from a forest. The self-supervised
@@ -169,9 +169,10 @@ approach (RIMER). *IEEE Trans. SMC-A*, 36(2).
 ## Appendix: code
 
 The notebook `lab4_1_explaining_phishing_detectors.ipynb` runs from top to bottom and writes every number
-and figure in this report. Below (Figures 2 and 3): two of its cells, the pseudo-labelling with the check of the guesses
-against the hidden labels (step A8), and the referential values and data-driven rules of the BRB (step D3).
+and figure in this report. Below (Figures 2 and 3): excerpts of two of its cells, the pseudo-labelling with
+the check of the guesses against the hidden labels (step A8), and the referential values and data-driven
+rules of the BRB (step D3).
 
-[[code A8 | Figure 2. Step A8: pseudo-labelling; the hidden labels are only used to count correct guesses.]]
+[[code A8 1-27 | Figure 2. Step A8, first 27 lines: pseudo-labelling; the hidden labels are only used to count correct guesses.]]
 
-[[code D3 | Figure 3. Step D3: referential values from the training data and the nine rules.]]
+[[code D3 1-24 | Figure 3. Step D3, first 24 lines: referential values from the training data and the nine rules.]]

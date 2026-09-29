@@ -1,4 +1,4 @@
-rank,SHAP on test (D1),SHAP on validation
+rank,SHAP on validation (D1),SHAP on test (B2)
 1,google_index,google_index
 2,page_rank,page_rank
 3,nb_hyperlinks,nb_hyperlinks
