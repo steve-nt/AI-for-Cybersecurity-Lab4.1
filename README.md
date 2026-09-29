@@ -10,8 +10,7 @@ Belief Rule-Based expert system (BRB).
 
 - **Notebook to hand in:** `lab4_1_explaining_phishing_detectors.ipynb`. It runs from top to bottom
   and holds lab steps A0–D5 in order, plus five optional extra checks at the end.
-- **Report:** `report/Lab4_1_Report.pdf` and `report/Lab4_1_Report.docx` (Word, with our title page),
-  both built from `report/Lab4_1_Report.md`.
+- **Report:** `report/Lab4_1_Report.pdf` 
 
 ## Dataset
 
@@ -90,6 +89,4 @@ differ in the last decimals between machines.
 ## Credits
 
 Example code from the lab instructions; scikit-learn, SHAP, LIME; the analytical ER formula in the last
-extra check is copied from our Lab 3 BRB code (`src/brbes.py` in that repository). Fonts in
-`report/fonts/`: Liberation Sans (SIL OFL 1.1) and DejaVu Sans Mono (Bitstream Vera licence). An AI
-assistant (Claude, by Anthropic) was used to plan the work, write the code and draft the report.
+extra check is copied from our Lab 3 BRB code (`src/brbes.py` in that repository). 
